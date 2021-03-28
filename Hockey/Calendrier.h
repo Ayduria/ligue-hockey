@@ -1,0 +1,20 @@
+#pragma once
+#include "Rencontre.h"
+#include <vector>
+using namespace std;
+
+class Calendrier
+{
+	vector<Rencontre> listeRencontres;
+
+public:
+	Calendrier();
+	
+	vector<Rencontre>* getListeRencontres() { return &listeRencontres; }
+	int getNbRencontres(void) { return listeRencontres.size(); }
+	Rencontre* getRencontre(int i) { return &listeRencontres[i]; }
+
+	Date creerDate(int jour, int mois, int annee);
+	void AjouterRencontre(Date dateRencontre, Club* clubLocal, Club* clubInvite);
+	vector<Rencontre> TrouverRencontresClub(Club* club);
+};
