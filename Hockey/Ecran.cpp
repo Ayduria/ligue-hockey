@@ -90,7 +90,6 @@ void Ecran::AjouterClub() {
 	string ville;
 	string adresse;
 	string continuer = "o";
-	vector<Joueur> listeJoueur;
 
 	system("cls");
 	cout << "============== Ajout d'un club ==============" << endl;

@@ -24,5 +24,5 @@ public:
 	void setContratActif(ContratEngagement* contrat) { this->contratActif = contrat; }
 
 	void ajouterParcours(string club, string date);
-	virtual bool transfert() { return true; }
+	virtual bool transfert() = 0;
 };
