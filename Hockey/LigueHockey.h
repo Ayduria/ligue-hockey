@@ -35,7 +35,7 @@ public:
 	string chercherClubTitre();
 	string chercherCoachTitre();
 	Club* chercherClub(string nom);
-	bool retirerClub(string nomClub);
+	void retirerClub(int choixClub);
 
 	ContratEngagement* creerContrat(Joueur* joueur, Club* clubContractant, Club* clubLibere, int dureeContrat, Date dateEntree, Reglement reglement, Date dateContrat);
 	Rupture* creerRupture(Joueur* joueur, string raisonsDepart, Club* nouveauClub, float penalite);

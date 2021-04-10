@@ -7,7 +7,7 @@ class JoueurNonAutonome : public Joueur
 
 public:
 	JoueurNonAutonome() {}
-	JoueurNonAutonome(string prenom, string nom, float taille, float poids, string ville, Parcours parcours, int anciennete);
+	JoueurNonAutonome(string prenom, string nom, float taille, float poids, string ville, int anciennete);
 
 	bool transfert() { return false; }
 };

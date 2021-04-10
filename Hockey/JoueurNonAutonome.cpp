@@ -1,5 +1,5 @@
 #include "JoueurNonAutonome.h"
 
-JoueurNonAutonome::JoueurNonAutonome(string prenom, string nom, float taille, float poids, string ville, Parcours parcours, int anciennete) : Joueur(prenom, nom, taille, poids, ville, parcours) {
+JoueurNonAutonome::JoueurNonAutonome(string prenom, string nom, float taille, float poids, string ville, int anciennete) : Joueur(prenom, nom, taille, poids, ville) {
 	this->anciennete = anciennete;
 }

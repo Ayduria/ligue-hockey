@@ -5,7 +5,7 @@ class JoueurAutonome : public Joueur
 {
 public:
 	JoueurAutonome() {}
-	JoueurAutonome(string prenom, string nom, float taille, float poids, string ville, Parcours parcours);
+	JoueurAutonome(string prenom, string nom, float taille, float poids, string ville);
 
 	bool transfert() { return true; }
 };

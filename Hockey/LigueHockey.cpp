@@ -28,17 +28,8 @@ Club* LigueHockey::chercherClub(string nom) {
 	return pClub;
 }
 
-bool LigueHockey::retirerClub(string nomClub) {
-	bool trouver = false;
-	for (size_t i = 0; i < listeClubs.size(); i++)
-	{
-		if (listeClubs.at(i).getNom() == nomClub)
-		{
-			listeClubs.erase(listeClubs.begin()+i);
-			trouver = true;
-		}
-	}
-	return trouver;
+void LigueHockey::retirerClub(int choixClub) {
+	listeClubs.erase(listeClubs.begin()+choixClub);
 }
 
 vector<TitreGagne> LigueHockey::ajouterTitreGagne(string nom, string date, Club* club, vector<TitreGagne> titreGagnes) {

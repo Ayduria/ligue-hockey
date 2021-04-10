@@ -7,10 +7,12 @@ using namespace std;
 class Parcours
 {
 private:
-	vector<string> listeClubs;
+	string club;
+	string date;
 
 public:
-	vector<string>* GetListeClubs() { return &listeClubs; }
-
-	void AjouterClubDate(string club, string date);
+	Parcours() {}
+	string getClub() { return club; }
+	string getDate() { return date; }
+	Parcours(string club, string date);
 };
