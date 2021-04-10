@@ -9,10 +9,12 @@ class Coach : public Sportif
 {
 private:
 	string lieuGraduation;
-	vector<TitreGagne> titreGagne;
+	vector<TitreGagne> titreGagnes;
 
 public:
-	Coach(string prenom, string nom, string lieuGraduation, vector<TitreGagne> titreGagne);
+	Coach(string prenom, string nom, string lieuGraduation);
 
-	vector<TitreGagne> getTitreGagne() { return titreGagne; }
+	vector<TitreGagne> getTitreGagne() { return titreGagnes; }
+
+	void ajouterTitreGagne(string nom, string date, Club* club);
 };

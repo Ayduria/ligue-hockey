@@ -30,8 +30,8 @@ public:
 	ContratEngagement* getContrat() { return &contrat; }
 
 	void ajouterClub(string nom, string histoire, string couleur, string date, string ville, string adresse);
-	void ajouterCoach(string nom, string prenom, string lieuGraduation, vector<TitreGagne> titreGagne);
-	vector<TitreGagne> ajouterTitreGagne(string nom, string date, Club* club, vector<TitreGagne> titreGagnes);
+	void ajouterCoach(string nom, string prenom, string lieuGraduation);
+	Coach* getCoach(string prenom, string nom);
 	string chercherClubTitre();
 	string chercherCoachTitre();
 	Club* chercherClub(string nom);

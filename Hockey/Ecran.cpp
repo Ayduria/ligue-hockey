@@ -343,7 +343,7 @@ void Ecran::AjouterEntraineur() {
 	string nom;
 	string prenom;
 	string grade;
-	vector<TitreGagne> titreGagne;
+	string continuer = "o";
 
 	system("cls");
 	cout << "=================== Ajout d'entraîneur ===================" << endl;
@@ -354,37 +354,38 @@ void Ecran::AjouterEntraineur() {
 	cout << "Lieu d'obtention de son grade: ";
 	getline(cin, grade);
 
-	cout << endl << "---------- Titres gagnés ----------" << endl;
-	titreGagne = AjouterTitreGagne();
+	pLigueHockey->ajouterCoach(nom, prenom, grade);
 
-	pLigueHockey->ajouterCoach(nom, prenom, grade, titreGagne);
+	cout << endl << "---------- Titres gagnés ----------" << endl;
+	cout << endl << "Voulez-vous ajouter un titre gagné ? (o/n) ";
+	getline(cin, continuer);
+
+	while (continuer == "o") {
+		AjouterTitreGagne(prenom, nom);
+		cout << endl << "Voulez vous ajouter un autre titre gagné (o/n) ";
+		getline(cin, continuer);
+	}
+	continuer = "o";
+
 	system("cls");
 }
 
-vector<TitreGagne> Ecran::AjouterTitreGagne() {
+void Ecran::AjouterTitreGagne(string prenom, string nom) {
 	string continuer = "o";
-	string nom;
+	string nomTitre;
 	string date;
 	string nomClub;
-	vector<TitreGagne> titreGagnes;
 	Club* club;
 
-	while (continuer == "o") {
+	cout << endl << "Nom du titre: ";
+	getline(cin, nomTitre);
+	cout << "Date à laquelle le club de l'entraîneur a gagné ce titre: ";
+	getline(cin, date);
+	cout << "Nom du club avec lequel l'entraîneur a gagné ce titre: ";
+	getline(cin, nomClub);
 
-		cout << endl << "Nom du titre: ";
-		getline(cin, nom);
-		cout << "Date à laquelle le club de l'entraîneur a gagné ce titre: ";
-		getline(cin, date);
-		cout << "Nom du club avec lequel l'entraîneur a gagné ce titre: ";
-		getline(cin, nomClub);
-
-		club = pLigueHockey->chercherClub(nomClub);
-		titreGagnes = pLigueHockey->ajouterTitreGagne(nom, date, club, titreGagnes);
-		
-		cout << endl << "Ajouter un autre titre gagné ? (o/n) ";
-		getline(cin, continuer);
-	}
-	return titreGagnes;
+	club = pLigueHockey->chercherClub(nomClub);
+	pLigueHockey->getCoach(prenom, nom)->ajouterTitreGagne(nomTitre, date, club);
 }
 
 void Ecran::AfficherPlusTitre() {
@@ -837,13 +838,12 @@ void Ecran::initHardcode() {
 	pLigueHockey->chercherClub("Tigres")->ajouterPalmares("Coupe junior", "2 juin 2002");
 	pLigueHockey->chercherClub("Tigres")->ajouterPalmares("Championnat provincial", "5 septembre 2005");
 	pLigueHockey->chercherClub("Pingouins")->ajouterPalmares("Championnat régional", "1er Mai 2000");
-	vector<TitreGagne> titreGagnes1;
-	vector<TitreGagne> titreGagnes2;
-	titreGagnes1 = pLigueHockey->ajouterTitreGagne("Meilleur coach", "2 janvier 2000", pLigueHockey->chercherClub("Pingouins"), titreGagnes1);
-	titreGagnes1 = pLigueHockey->ajouterTitreGagne("Coach le plus efficace", "3 décembre 2005", pLigueHockey->chercherClub("Pingouins"), titreGagnes1);
-	titreGagnes2 = pLigueHockey->ajouterTitreGagne("Coach le plus apprécié", "8 février 2008", pLigueHockey->chercherClub("Tigres"), titreGagnes2);
-	pLigueHockey->ajouterCoach("Simon", "Kant", "École de la vie", titreGagnes2);
-	pLigueHockey->ajouterCoach("Marc-Antoine", "Larouche", "Nicolet", titreGagnes1);
+
+	pLigueHockey->ajouterCoach("Simon", "Kant", "École de la vie");
+	pLigueHockey->ajouterCoach("Marc-Antoine", "Larouche", "Nicolet");
+	pLigueHockey->getCoach("Simon", "Kant")->ajouterTitreGagne("Meilleur coach", "2 janvier 2000", pLigueHockey->chercherClub("Pingouins"));
+	pLigueHockey->getCoach("Marc-Antoine", "Larouche")->ajouterTitreGagne("Coach le plus efficace", "3 décembre 2005", pLigueHockey->chercherClub("Pingouins"));
+	pLigueHockey->getCoach("Marc-Antoine", "Larouche")->ajouterTitreGagne("Coach le plus apprécié", "8 février 2008", pLigueHockey->chercherClub("Tigres"));
 
 	Date date1 = pLigueHockey->getCalendrier()->creerDate(15, 2, 2021);
 	Date date2 = pLigueHockey->getCalendrier()->creerDate(6, 4, 2021);

@@ -7,9 +7,20 @@ void LigueHockey::ajouterClub(std::string nom, std::string histoire, std::string
 	listeClubs.insert(listeClubs.begin(), club);
 }
 
-void LigueHockey::ajouterCoach(string nom, string prenom, string lieuGraduation, vector<TitreGagne> titreGagne) {
-	Coach coach(nom, prenom, lieuGraduation, titreGagne);
+void LigueHockey::ajouterCoach(string nom, string prenom, string lieuGraduation) {
+	Coach coach(nom, prenom, lieuGraduation);
 	listeCoach.insert(listeCoach.begin(), coach);
+}
+
+Coach* LigueHockey::getCoach(string prenom, string nom) {
+	Coach* pCoach = nullptr;
+	for (size_t i = 0; i < listeCoach.size(); i++)
+	{
+		if ((listeCoach.at(i).getPrenom() == prenom) && (listeCoach.at(i).getNom() == nom))
+			pCoach = &listeCoach.at(i);
+	}
+
+	return pCoach;
 }
 
 Club* LigueHockey::chercherClub(string nom) {
@@ -30,15 +41,6 @@ Club* LigueHockey::chercherClub(string nom) {
 
 void LigueHockey::retirerClub(int choixClub) {
 	listeClubs.erase(listeClubs.begin()+choixClub);
-}
-
-vector<TitreGagne> LigueHockey::ajouterTitreGagne(string nom, string date, Club* club, vector<TitreGagne> titreGagnes) {
-
-	Palmares palmares(nom, date);
-	TitreGagne titreGagne(palmares, club);
-	titreGagnes.insert(titreGagnes.begin(), titreGagne);
-
-	return titreGagnes;
 }
 
 string LigueHockey::chercherClubTitre() {

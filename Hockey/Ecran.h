@@ -28,7 +28,7 @@ public:
 	void AjouterStade(string nom);
 	void AjouterStaff(string nom);
 	void AjouterEntraineur();
-	vector<TitreGagne> AjouterTitreGagne();
+	void AjouterTitreGagne(string prenom, string nom);
 
 	void AjouterRencontre();
 	void AfficherCalendrierClub();

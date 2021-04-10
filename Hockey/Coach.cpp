@@ -1,6 +1,11 @@
 #include "Coach.h"
 
-Coach::Coach(string prenom, string nom, string lieuGraduation, vector<TitreGagne> titreGagne) : Sportif(prenom, nom) {
+Coach::Coach(string prenom, string nom, string lieuGraduation) : Sportif(prenom, nom) {
 	this->lieuGraduation = lieuGraduation;
-	this->titreGagne = titreGagne;
+}
+
+void Coach::ajouterTitreGagne(string nom, string date, Club* club) {
+	Palmares palmares(nom, date);
+	TitreGagne titreGagne(palmares, club);
+	titreGagnes.push_back(titreGagne);
 }
