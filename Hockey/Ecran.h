@@ -23,12 +23,12 @@ public:
 	void SupprimerClub();
 	void AfficherPlusTitre();
 	void AjouterJoueur(string nom);
-	Parcours AjouterParcours();
+	void AjouterParcours(string prenom, string nom, string nomClub);
 	void AjouterPalmares(string nom);
 	void AjouterStade(string nom);
 	void AjouterStaff(string nom);
 	void AjouterEntraineur();
-	vector<TitreGagne> AjouterTitreGagne();
+	void AjouterTitreGagne(string prenom, string nom);
 
 	void AjouterRencontre();
 	void AfficherCalendrierClub();
@@ -38,7 +38,7 @@ public:
 	void AfficherMontantTransferts();
 	Equipe CreerEquipe(Club* club, int noRencontre);
 	void AjouterPeriode(int noRencontre);
-	void creerContrat(Joueur* joueur, Club* ancienClub, Club* nouveauClub);
+	void creerContrat(int noJoueur, Joueur* joueur, Club* ancienClub, Date date, bool ruptureContrat);
 
 	void initHardcode();
 };

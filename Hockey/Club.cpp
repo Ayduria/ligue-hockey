@@ -11,13 +11,13 @@ Club::Club(string nom, string histoire, string couleur, string date, string vill
 	this->adresse = adresse;
 }
 
-void Club::ajouterJoueurAutonome(string prenom, string nom, float taille, float poids, string ville, Parcours parcours) {
-	JoueurAutonome* joueur = new JoueurAutonome(prenom, nom, taille, poids, ville, parcours);
+void Club::ajouterJoueurAutonome(string prenom, string nom, float taille, float poids, string ville) {
+	JoueurAutonome* joueur = new JoueurAutonome(prenom, nom, taille, poids, ville);
 	effectif.push_back(joueur);
 }
 
-void Club::ajouterJoueurNonAutonome(string prenom, string nom, float taille, float poids, string ville, Parcours parcours, int anciennete) {
-	JoueurNonAutonome* joueur = new JoueurNonAutonome(prenom, nom, taille, poids, ville, parcours, anciennete);
+void Club::ajouterJoueurNonAutonome(string prenom, string nom, float taille, float poids, string ville, int anciennete) {
+	JoueurNonAutonome* joueur = new JoueurNonAutonome(prenom, nom, taille, poids, ville, anciennete);
 	effectif.push_back(joueur);
 }
 
@@ -53,4 +53,12 @@ void Club::ajouterContrat(ContratEngagement* contrat) {
 
 void Club::ajouterRupture(Rupture* rupture) {
 	listeRuptures.push_back(rupture);
+}
+
+void Club::ajouterJoueurTransfert(Joueur* joueur) {
+	effectif.push_back(joueur);
+}
+
+void Club::retirerJoueur(int joueur) {
+	effectif.erase(effectif.begin() + joueur);
 }

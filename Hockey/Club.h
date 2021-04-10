@@ -47,11 +47,12 @@ public:
 	Joueur* chercherJoueur(string prenom, string nom);
 	int getNbJoueurs() { return effectif.size(); }
 
-	void ajouterJoueurAutonome(string prenom, string nom, float taille, float poids, string ville, Parcours parcours);
-	void ajouterJoueurNonAutonome(string prenom, string nom, float taille, float poids, string ville, Parcours parcours, int anciennete);
+	void ajouterJoueurAutonome(string prenom, string nom, float taille, float poids, string ville);
+	void ajouterJoueurNonAutonome(string prenom, string nom, float taille, float poids, string ville, int anciennete);
+	void ajouterJoueurTransfert(Joueur* joueur);
+	void retirerJoueur(int joueur);
 	void ajouterContrat(ContratEngagement* contrat);
 	void ajouterRupture(Rupture* rupture);
 	int getNbContrats() { return listeContrats.size(); }
 	ContratEngagement* getContrat(int i) { return listeContrats[i]; }
-
 };

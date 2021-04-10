@@ -1,8 +1,6 @@
 #include "Parcours.h"
 
-void Parcours::AjouterClubDate(string club, string date) {
-
-	string newClub = club + "|" + date;
-	listeClubs.insert(listeClubs.begin(), newClub);
-
+Parcours::Parcours(string club, string date) {
+	this->club = club;
+	this->date = date;
 }
