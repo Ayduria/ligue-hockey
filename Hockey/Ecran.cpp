@@ -801,7 +801,7 @@ void Ecran::AfficherMontantTransferts() {
 	for (int i = 0; i < nbClubs; i++)
 		cout << endl << i + 1 << ") " << pLigueHockey->getClub(i)->getNom();
 
-	cout << endl << endl << "Entrez le numéro du club pour lequel vous désirer voir les dates de contrats: ";
+	cout << endl << endl << "Entrez le numéro du club pour lequel vous désirer voir les contrats lui ayant rapporté de l'argent: ";
 	cin >> choixClub;
 	choixClub--;
 
@@ -830,10 +830,17 @@ void Ecran::AfficherMontantTransferts() {
 }
 
 void Ecran::initHardcode() {
+	// Clubs
 	pLigueHockey->ajouterClub("Pingouins", "Histoire du club", "Blanc", "2000", "Saguenay", "UQAC");
 	pLigueHockey->ajouterClub("Tigres", "Histoire du club", "Orange", "1999", "Montréal", "UQAM");
 	pLigueHockey->ajouterClub("Requins", "Histoire du club", "Bleu", "2002", "Laval", "ULAVAL");
 
+		// Palmares clubs
+	pLigueHockey->chercherClub("Tigres")->ajouterPalmares("Coupe junior", "2 juin 2002");
+	pLigueHockey->chercherClub("Tigres")->ajouterPalmares("Championnat provincial", "5 septembre 2005");
+	pLigueHockey->chercherClub("Pingouins")->ajouterPalmares("Championnat régional", "1er Mai 2000");
+
+	// Joueurs
 	pLigueHockey->chercherClub("Pingouins")->ajouterJoueur<JoueurAutonome>("Jean", "Tremblay", 180, 200, "Saguenay");
 	pLigueHockey->chercherClub("Pingouins")->ajouterJoueur<JoueurAutonome>("Simon", "Girard", 150, 180, "Alma");
 	pLigueHockey->chercherClub("Pingouins")->ajouterJoueur<JoueurNonAutonome>("Jeanne", "Bédard", 160, 140, "Chicoutimi");
@@ -842,16 +849,66 @@ void Ecran::initHardcode() {
 	pLigueHockey->chercherClub("Requins")->ajouterJoueur<JoueurAutonome>("Robert", "Girard", 150, 175, "Alma");
 	pLigueHockey->chercherClub("Requins")->ajouterJoueur<JoueurAutonome>("Julie", "Simard", 125, 150, "Chicoutimi");
 
-	pLigueHockey->chercherClub("Tigres")->ajouterPalmares("Coupe junior", "2 juin 2002");
-	pLigueHockey->chercherClub("Tigres")->ajouterPalmares("Championnat provincial", "5 septembre 2005");
-	pLigueHockey->chercherClub("Pingouins")->ajouterPalmares("Championnat régional", "1er Mai 2000");
+	// Contrats
+	Reglement reglementC1 = pLigueHockey->getContrat()->creerReglement(3000, "Droits", 2000, 500);
+	Date dateC1 = pLigueHockey->getCalendrier()->creerDate(5, 4, 2017);
+	ContratEngagement* contratC1 = pLigueHockey->creerContrat(pLigueHockey->chercherClub("Pingouins")->chercherJoueur("Jean", "Tremblay"), pLigueHockey->chercherClub("Pingouins"), pLigueHockey->chercherClub("Requins"), 3, dateC1, reglementC1, dateC1);
+	pLigueHockey->chercherClub("Pingouins")->ajouterContrat(contratC1);
+	pLigueHockey->chercherClub("Requins")->ajouterContrat(contratC1);
+	pLigueHockey->chercherClub("Pingouins")->chercherJoueur("Jean", "Tremblay")->setContratActif(contratC1);
 
+	Reglement reglementC2 = pLigueHockey->getContrat()->creerReglement(4000, "Droits", 2000, 1500);
+	Date dateC2 = pLigueHockey->getCalendrier()->creerDate(10, 7, 2018);
+	ContratEngagement* contratC2 = pLigueHockey->creerContrat(pLigueHockey->chercherClub("Pingouins")->chercherJoueur("Simon", "Girard"), pLigueHockey->chercherClub("Pingouins"), pLigueHockey->chercherClub("Tigres"), 5, dateC2, reglementC2, dateC2);
+	pLigueHockey->chercherClub("Pingouins")->ajouterContrat(contratC2);
+	pLigueHockey->chercherClub("Tigres")->ajouterContrat(contratC2);
+	pLigueHockey->chercherClub("Pingouins")->chercherJoueur("Simon", "Girard")->setContratActif(contratC2);
+
+	Reglement reglementC3 = pLigueHockey->getContrat()->creerReglement(2500, "Droits", 1900, 600);
+	Date dateC3 = pLigueHockey->getCalendrier()->creerDate(2, 4, 2020);
+	ContratEngagement* contratC3 = pLigueHockey->creerContrat(pLigueHockey->chercherClub("Pingouins")->chercherJoueur("Jeanne", "Bédard"), pLigueHockey->chercherClub("Pingouins"), pLigueHockey->chercherClub("Tigres"), 4, dateC3, reglementC3, dateC3);
+	pLigueHockey->chercherClub("Pingouins")->ajouterContrat(contratC3);
+	pLigueHockey->chercherClub("Tigres")->ajouterContrat(contratC3);
+	pLigueHockey->chercherClub("Pingouins")->chercherJoueur("Jeanne", "Bédard")->setContratActif(contratC3);
+
+	Reglement reglementC4 = pLigueHockey->getContrat()->creerReglement(2000, "Droits", 1500, 700);
+	Date dateC4 = pLigueHockey->getCalendrier()->creerDate(4, 10, 2018);
+	ContratEngagement* contratC4 = pLigueHockey->creerContrat(pLigueHockey->chercherClub("Tigres")->chercherJoueur("Laurie", "Potvin"), pLigueHockey->chercherClub("Tigres"), pLigueHockey->chercherClub("Requins"), 2, dateC4, reglementC4, dateC4);
+	pLigueHockey->chercherClub("Tigres")->ajouterContrat(contratC4);
+	pLigueHockey->chercherClub("Requins")->ajouterContrat(contratC4);
+	pLigueHockey->chercherClub("Tigres")->chercherJoueur("Laurie", "Potvin")->setContratActif(contratC4);
+
+	Reglement reglementC5 = pLigueHockey->getContrat()->creerReglement(5000, "Droits", 3000, 1800);
+	Date dateC5 = pLigueHockey->getCalendrier()->creerDate(26, 11, 2015);
+	ContratEngagement* contratC5 = pLigueHockey->creerContrat(pLigueHockey->chercherClub("Tigres")->chercherJoueur("Peter", "St-Gelais"), pLigueHockey->chercherClub("Tigres"), pLigueHockey->chercherClub("Pingouins"), 10, dateC5, reglementC5, dateC5);
+	pLigueHockey->chercherClub("Tigres")->ajouterContrat(contratC5);
+	pLigueHockey->chercherClub("Pingouins")->ajouterContrat(contratC5);
+	pLigueHockey->chercherClub("Tigres")->chercherJoueur("Peter", "St-Gelais")->setContratActif(contratC5);
+
+	Reglement reglementC6 = pLigueHockey->getContrat()->creerReglement(4500, "Droits", 3000, 1500);
+	Date dateC6 = pLigueHockey->getCalendrier()->creerDate(15, 6, 2021);
+	ContratEngagement* contratC6 = pLigueHockey->creerContrat(pLigueHockey->chercherClub("Requins")->chercherJoueur("Robert", "Girard"), pLigueHockey->chercherClub("Requins"), pLigueHockey->chercherClub("Pingouins"), 2, dateC6, reglementC6, dateC6);
+	pLigueHockey->chercherClub("Requins")->ajouterContrat(contratC6);
+	pLigueHockey->chercherClub("Pingouins")->ajouterContrat(contratC6);
+	pLigueHockey->chercherClub("Requins")->chercherJoueur("Robert", "Girard")->setContratActif(contratC6);
+
+	Reglement reglementC7 = pLigueHockey->getContrat()->creerReglement(2000, "Droits", 1000, 1000);
+	Date dateC7 = pLigueHockey->getCalendrier()->creerDate(18, 9, 2014);
+	ContratEngagement* contratC7 = pLigueHockey->creerContrat(pLigueHockey->chercherClub("Requins")->chercherJoueur("Julie", "Simard"), pLigueHockey->chercherClub("Requins"), pLigueHockey->chercherClub("Pingouins"), 6, dateC7, reglementC7, dateC7);
+	pLigueHockey->chercherClub("Requins")->ajouterContrat(contratC7);
+	pLigueHockey->chercherClub("Pingouins")->ajouterContrat(contratC7);
+	pLigueHockey->chercherClub("Requins")->chercherJoueur("Julie", "Simard")->setContratActif(contratC7);
+
+	// Entraîneurs
 	pLigueHockey->ajouterCoach("Simon", "Kant", "École de la vie", "Saguenay", 25);
 	pLigueHockey->ajouterCoach("Marc-Antoine", "Larouche", "Nicolet", "Montréal", 28);
+
+		// Titres gagnés entraîneurs
 	pLigueHockey->getCoach("Simon", "Kant")->ajouterTitreGagne("Meilleur coach", "2 janvier 2000", pLigueHockey->chercherClub("Pingouins"));
 	pLigueHockey->getCoach("Marc-Antoine", "Larouche")->ajouterTitreGagne("Coach le plus efficace", "3 décembre 2005", pLigueHockey->chercherClub("Pingouins"));
 	pLigueHockey->getCoach("Marc-Antoine", "Larouche")->ajouterTitreGagne("Coach le plus apprécié", "8 février 2008", pLigueHockey->chercherClub("Tigres"));
 
+	// Rencontres
 	Date date1 = pLigueHockey->getCalendrier()->creerDate(15, 2, 2021);
 	Date date2 = pLigueHockey->getCalendrier()->creerDate(6, 4, 2021);
 	Date date3 = pLigueHockey->getCalendrier()->creerDate(24, 24, 2021);
@@ -861,19 +918,12 @@ void Ecran::initHardcode() {
 	pLigueHockey->getCalendrier()->AjouterRencontre(date3, pLigueHockey->chercherClub("Pingouins"), pLigueHockey->chercherClub("Tigres"));
 	pLigueHockey->getCalendrier()->AjouterRencontre(date4, pLigueHockey->chercherClub("Requins"), pLigueHockey->chercherClub("Tigres"));
 
+		// Match
 	Rencontre* rencontre = pLigueHockey->getCalendrier()->getRencontre(0);
-	Joueur* joueur = pLigueHockey->chercherClub("Tigres")->chercherJoueur("Laurie", "Potvin");
-	Equipe equipe1 = rencontre->getMatch()->creerEquipe(pLigueHockey->chercherClub("Tigres"), 12, 2, joueur);
-	Equipe equipe2 = rencontre->getMatch()->creerEquipe(pLigueHockey->chercherClub("Requins"), 10, 3, joueur);
+	Equipe equipe1 = rencontre->getMatch()->creerEquipe(pLigueHockey->chercherClub("Tigres"), 12, 2, pLigueHockey->chercherClub("Tigres")->chercherJoueur("Laurie", "Potvin"));
+	Equipe equipe2 = rencontre->getMatch()->creerEquipe(pLigueHockey->chercherClub("Requins"), 10, 3, pLigueHockey->chercherClub("Tigres")->chercherJoueur("Robert", "Girard"));
 	rencontre->setMatch(rencontre->creerMatch(equipe1, equipe2));
 	rencontre->getMatch()->ajouterPeriode(12, 2, 3);
 	rencontre->getMatch()->ajouterPeriode(10, 5, 2);
 	rencontre->getMatch()->setResultatFinal(rencontre->getMatch()->calculerResultat());
-
-	Reglement reglement = pLigueHockey->getContrat()->creerReglement(2000, "Droits", 1500, 700);
-	Date date5 = pLigueHockey->getCalendrier()->creerDate(4, 10, 2018);
-	ContratEngagement* contrat = pLigueHockey->creerContrat(joueur, pLigueHockey->chercherClub("Tigres"), pLigueHockey->chercherClub("Requins"), 2, date5, reglement, date2);
-	pLigueHockey->chercherClub("Requins")->ajouterContrat(contrat);
-	pLigueHockey->chercherClub("Tigres")->ajouterContrat(contrat);
-	joueur->setContratActif(contrat);
 }

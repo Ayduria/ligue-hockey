@@ -152,6 +152,11 @@
     <ClCompile Include="Joueur.cpp" />
     <ClCompile Include="LigueHockey.cpp" />
     <ClCompile Include="Match.cpp" />
+    <ClCompile Include="Message.cpp" />
+    <ClCompile Include="NegoAcheteur.cpp" />
+    <ClCompile Include="Negociateur.cpp" />
+    <ClCompile Include="Negociation.cpp" />
+    <ClCompile Include="NegoVendeur.cpp" />
     <ClCompile Include="Palmares.cpp" />
     <ClCompile Include="Parcours.cpp" />
     <ClCompile Include="Periode.cpp" />
@@ -179,6 +184,11 @@
     <ClInclude Include="JoueurNonAutonome.h" />
     <ClInclude Include="LigueHockey.h" />
     <ClInclude Include="Match.h" />
+    <ClInclude Include="Message.h" />
+    <ClInclude Include="NegoAcheteur.h" />
+    <ClInclude Include="Negociateur.h" />
+    <ClInclude Include="Negociation.h" />
+    <ClInclude Include="NegoVendeur.h" />
     <ClInclude Include="Palmares.h" />
     <ClInclude Include="Parcours.h" />
     <ClInclude Include="Periode.h" />
