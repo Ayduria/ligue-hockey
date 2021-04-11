@@ -11,16 +11,6 @@ Club::Club(string nom, string histoire, string couleur, string date, string vill
 	this->adresse = adresse;
 }
 
-void Club::ajouterJoueurAutonome(string prenom, string nom, float taille, float poids, string ville) {
-	JoueurAutonome* joueur = new JoueurAutonome(prenom, nom, taille, poids, ville);
-	effectif.push_back(joueur);
-}
-
-void Club::ajouterJoueurNonAutonome(string prenom, string nom, float taille, float poids, string ville, int anciennete) {
-	JoueurNonAutonome* joueur = new JoueurNonAutonome(prenom, nom, taille, poids, ville, anciennete);
-	effectif.push_back(joueur);
-}
-
 void Club::ajouterPalmares(string nom, string date) {
 	Palmares palmares(nom, date);
 	clubPalmares.insert(clubPalmares.begin(), palmares);

@@ -47,8 +47,8 @@ public:
 	Joueur* chercherJoueur(string prenom, string nom);
 	int getNbJoueurs() { return effectif.size(); }
 
-	void ajouterJoueurAutonome(string prenom, string nom, float taille, float poids, string ville);
-	void ajouterJoueurNonAutonome(string prenom, string nom, float taille, float poids, string ville, int anciennete);
+	template<typename T>
+	void ajouterJoueur(string prenom, string nom, float taille, float poids, string ville);
 	void ajouterJoueurTransfert(Joueur* joueur);
 	void retirerJoueur(int joueur);
 	void ajouterContrat(ContratEngagement* contrat);
@@ -56,3 +56,9 @@ public:
 	int getNbContrats() { return listeContrats.size(); }
 	ContratEngagement* getContrat(int i) { return listeContrats[i]; }
 };
+
+template<typename T>
+void Club::ajouterJoueur(string prenom, string nom, float taille, float poids, string ville) {
+	T* joueur = new T(prenom, nom, taille, poids, ville);
+	effectif.push_back(joueur);
+}

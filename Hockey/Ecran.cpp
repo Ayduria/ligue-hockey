@@ -205,13 +205,10 @@ void Ecran::AjouterJoueur(string nomClub) {
 	cout << endl << "Le joueur est-il autonome (o/n) ? ";
 	cin >> autonome;
 
-	if(autonome == "n") {
-		int anciennete;
-		cout << endl << "Nombre d'années d'ancienneté du joueur: ";
-		cin >> anciennete;
-		pLigueHockey->chercherClub(nomClub)->ajouterJoueurNonAutonome(prenom, nom, taille, poids, ville, anciennete);
-	} else
-		pLigueHockey->chercherClub(nomClub)->ajouterJoueurAutonome(prenom, nom, taille, poids, ville);
+	if(autonome == "n")
+		pLigueHockey->chercherClub(nomClub)->ajouterJoueur<JoueurNonAutonome>(prenom, nom, taille, poids, ville);
+	else
+		pLigueHockey->chercherClub(nomClub)->ajouterJoueur<JoueurAutonome>(prenom, nom, taille, poids, ville);
 
 	cout << endl << "----- Parcours du joueur -----" << endl;
 	while (ajouterParcours == "o") {
@@ -837,13 +834,13 @@ void Ecran::initHardcode() {
 	pLigueHockey->ajouterClub("Tigres", "Histoire du club", "Orange", "1999", "Montréal", "UQAM");
 	pLigueHockey->ajouterClub("Requins", "Histoire du club", "Bleu", "2002", "Laval", "ULAVAL");
 
-	pLigueHockey->chercherClub("Pingouins")->ajouterJoueurAutonome("Jean", "Tremblay", 180, 200, "Saguenay");
-	pLigueHockey->chercherClub("Pingouins")->ajouterJoueurAutonome("Simon", "Girard", 150, 180, "Alma");
-	pLigueHockey->chercherClub("Pingouins")->ajouterJoueurNonAutonome("Jeanne", "Bédard", 160, 140, "Chicoutimi", 4);
-	pLigueHockey->chercherClub("Tigres")->ajouterJoueurNonAutonome("Laurie", "Potvin", 150, 130, "Saguenay", 5);
-	pLigueHockey->chercherClub("Tigres")->ajouterJoueurNonAutonome("Peter", "St-Gelais", 200, 210, "Montréal", 1);
-	pLigueHockey->chercherClub("Requins")->ajouterJoueurAutonome("Robert", "Girard", 150, 175, "Alma");
-	pLigueHockey->chercherClub("Requins")->ajouterJoueurAutonome("Julie", "Simard", 125, 150, "Chicoutimi");
+	pLigueHockey->chercherClub("Pingouins")->ajouterJoueur<JoueurAutonome>("Jean", "Tremblay", 180, 200, "Saguenay");
+	pLigueHockey->chercherClub("Pingouins")->ajouterJoueur<JoueurAutonome>("Simon", "Girard", 150, 180, "Alma");
+	pLigueHockey->chercherClub("Pingouins")->ajouterJoueur<JoueurNonAutonome>("Jeanne", "Bédard", 160, 140, "Chicoutimi");
+	pLigueHockey->chercherClub("Tigres")->ajouterJoueur<JoueurNonAutonome>("Laurie", "Potvin", 150, 130, "Saguenay");
+	pLigueHockey->chercherClub("Tigres")->ajouterJoueur<JoueurNonAutonome>("Peter", "St-Gelais", 200, 210, "Montréal");
+	pLigueHockey->chercherClub("Requins")->ajouterJoueur<JoueurAutonome>("Robert", "Girard", 150, 175, "Alma");
+	pLigueHockey->chercherClub("Requins")->ajouterJoueur<JoueurAutonome>("Julie", "Simard", 125, 150, "Chicoutimi");
 
 	pLigueHockey->chercherClub("Tigres")->ajouterPalmares("Coupe junior", "2 juin 2002");
 	pLigueHockey->chercherClub("Tigres")->ajouterPalmares("Championnat provincial", "5 septembre 2005");
