@@ -1,18 +1,19 @@
 #pragma once
 #include "TitreGagne.h"
 #include "Sportif.h"
+#include "Staff.h"
 #include <string>
 
 using namespace std;
 
-class Coach : public Sportif
+class Coach : public Sportif, public Staff
 {
 private:
 	string lieuGraduation;
 	vector<TitreGagne> titreGagnes;
 
 public:
-	Coach(string prenom, string nom, string lieuGraduation);
+	Coach(string prenom, string nom, string lieuGraduation, string villeNaissance, int age);
 
 	vector<TitreGagne> getTitreGagne() { return titreGagnes; }
 

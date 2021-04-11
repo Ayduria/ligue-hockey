@@ -30,7 +30,7 @@ public:
 	ContratEngagement* getContrat() { return &contrat; }
 
 	void ajouterClub(string nom, string histoire, string couleur, string date, string ville, string adresse);
-	void ajouterCoach(string nom, string prenom, string lieuGraduation);
+	void ajouterCoach(string prenom, string nom, string lieuGraduation, string villeNaissance, int age);
 	Coach* getCoach(string prenom, string nom);
 	string chercherClubTitre();
 	string chercherCoachTitre();

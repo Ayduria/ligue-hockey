@@ -1,16 +1,13 @@
 #pragma once
 #include <string>
+#include "Personne.h"
 using namespace std;
 
-class Sportif
+class Sportif : virtual public Personne
 {
-	string prenom;
-	string nom;
+	string villeNaissance;
 
 public:
 	Sportif() {}
-	Sportif(string prenom, string nom);
-
-	string getPrenom() { return prenom; }
-	string getNom() { return nom; }
+	Sportif(string prenom, string nom, string villeNaissance);
 };

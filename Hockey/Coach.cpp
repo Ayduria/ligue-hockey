@@ -1,6 +1,6 @@
 #include "Coach.h"
 
-Coach::Coach(string prenom, string nom, string lieuGraduation) : Sportif(prenom, nom) {
+Coach::Coach(string prenom, string nom, string lieuGraduation, string villeNaissance, int age) : Sportif(prenom, nom, villeNaissance), Staff(prenom, nom, age, "Entraîneur"), Personne(prenom, nom) {
 	this->lieuGraduation = lieuGraduation;
 }
 

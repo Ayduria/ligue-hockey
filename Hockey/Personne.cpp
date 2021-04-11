@@ -1,7 +1,6 @@
 #include "Personne.h"
 
-Personne::Personne(string nom, int age, string role) {
+Personne::Personne(string prenom, string nom) {
+	this->prenom = prenom;
 	this->nom = nom;
-	this->age = age;
-	this->role = role;
 }

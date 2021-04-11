@@ -5,11 +5,13 @@ using namespace std;
 
 class Personne
 {
-private:
+	string prenom;
 	string nom;
-	int age;
-	string role;
 
 public:
-	Personne(string nom, int age, string role);
+	Personne () {}
+	Personne(string prenom, string nom);
+
+	string getPrenom() { return prenom; }
+	string getNom() { return nom; }
 };
