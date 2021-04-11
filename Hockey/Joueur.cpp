@@ -1,9 +1,8 @@
 #include "Joueur.h"
 
-Joueur::Joueur(string prenom, string nom, float taille, float poids, string ville) : Sportif(prenom, nom) {
+Joueur::Joueur(string prenom, string nom, float taille, float poids, string ville) : Sportif(prenom, nom, ville), Personne(prenom, nom) {
 	this->taille = taille;
 	this->poids = poids;
-	this->villeNaissance = ville;
 	this->contratActif = nullptr;
 }
 

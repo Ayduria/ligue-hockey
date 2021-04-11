@@ -162,6 +162,7 @@
     <ClCompile Include="Rupture.cpp" />
     <ClCompile Include="Sportif.cpp" />
     <ClCompile Include="Stade.cpp" />
+    <ClCompile Include="Staff.cpp" />
     <ClCompile Include="TitreGagne.cpp" />
     <ClCompile Include="Ecran.cpp" />
   </ItemGroup>
@@ -188,6 +189,7 @@
     <ClInclude Include="Rupture.h" />
     <ClInclude Include="Sportif.h" />
     <ClInclude Include="Stade.h" />
+    <ClInclude Include="Staff.h" />
     <ClInclude Include="TitreGagne.h" />
     <ClInclude Include="Ecran.h" />
   </ItemGroup>

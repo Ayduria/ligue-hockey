@@ -3,7 +3,7 @@
 #include "JoueurAutonome.h"
 #include "JoueurNonAutonome.h"
 #include "Palmares.h"
-#include "Personne.h"
+#include "Staff.h"
 #include "Stade.h"
 #include <Vector>
 #include <string>
@@ -25,7 +25,7 @@ private:
 	Stade stade;
 	string ville;
 	string adresse;
-	vector<Personne> staffTechnique;
+	vector<Staff> staffTechnique;
 	vector<ContratEngagement*> listeContrats;
 	vector<Rupture*> listeRuptures;
 
@@ -37,13 +37,13 @@ public:
 	vector<Joueur*> getEffectif() { return effectif; }
 	Joueur* getJoueur(int i) { return effectif[i]; }
 	vector<Palmares> getPalmares() { return clubPalmares; }
-	vector<Personne>* getStaff() { return &staffTechnique; }
+	vector<Staff>* getStaff() { return &staffTechnique; }
 	vector<ContratEngagement*> getListeContrats() { return listeContrats; }
 	vector<Rupture*> getListeRuptures() { return listeRuptures; }
 
 	void setStade(int capacite, string qualiteTerrain, string nom, string adresse);
 	void ajouterPalmares(string nom, string date);
-	void ajouterPersonne(string nom, int age, string role);
+	void ajouterPersonne(string prenom, string nom, int age, string role);
 	Joueur* chercherJoueur(string prenom, string nom);
 	int getNbJoueurs() { return effectif.size(); }
 

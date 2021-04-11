@@ -268,10 +268,13 @@ void Ecran::AjouterStade(string nomClub) {
 }
 
 void Ecran::AjouterStaff(string nomClub) {
+	string prenom;
 	string nom;
 	int age;
 	string role;
 
+	cout << endl << "Prénom de l'employé: ";
+	getline(cin, prenom);
 	cout << endl << "Nom de l'employé: ";
 	getline(cin, nom);
 	cout << "Âge de l'employé: ";
@@ -280,7 +283,7 @@ void Ecran::AjouterStaff(string nomClub) {
 	cout << "Rôle de l'employé: ";
 	getline(cin, role);
 
-	pLigueHockey->chercherClub(nomClub)->ajouterPersonne(nom, age, role);
+	pLigueHockey->chercherClub(nomClub)->ajouterPersonne(prenom, nom, age, role);
 }
 
 void Ecran::SupprimerClub() {
@@ -339,9 +342,12 @@ void Ecran::AfficherClub() {
 }
 
 void Ecran::AjouterEntraineur() {
-	string nom;
 	string prenom;
+	string nom;
+	string villeNaissance;
 	string grade;
+	int age;
+	string role;
 	string continuer = "o";
 
 	system("cls");
@@ -352,8 +358,13 @@ void Ecran::AjouterEntraineur() {
 	getline(cin, nom);
 	cout << "Lieu d'obtention de son grade: ";
 	getline(cin, grade);
+	cout << "Ville de naissance: ";
+	getline(cin, villeNaissance);
+	cout << "Âge: ";
+	cin >> age;
+	cin.ignore();
 
-	pLigueHockey->ajouterCoach(nom, prenom, grade);
+	pLigueHockey->ajouterCoach(prenom, nom, grade, villeNaissance, age);
 
 	cout << endl << "---------- Titres gagnés ----------" << endl;
 	cout << endl << "Voulez-vous ajouter un titre gagné ? (o/n) ";
@@ -838,8 +849,8 @@ void Ecran::initHardcode() {
 	pLigueHockey->chercherClub("Tigres")->ajouterPalmares("Championnat provincial", "5 septembre 2005");
 	pLigueHockey->chercherClub("Pingouins")->ajouterPalmares("Championnat régional", "1er Mai 2000");
 
-	pLigueHockey->ajouterCoach("Simon", "Kant", "École de la vie");
-	pLigueHockey->ajouterCoach("Marc-Antoine", "Larouche", "Nicolet");
+	pLigueHockey->ajouterCoach("Simon", "Kant", "École de la vie", "Saguenay", 25);
+	pLigueHockey->ajouterCoach("Marc-Antoine", "Larouche", "Nicolet", "Montréal", 28);
 	pLigueHockey->getCoach("Simon", "Kant")->ajouterTitreGagne("Meilleur coach", "2 janvier 2000", pLigueHockey->chercherClub("Pingouins"));
 	pLigueHockey->getCoach("Marc-Antoine", "Larouche")->ajouterTitreGagne("Coach le plus efficace", "3 décembre 2005", pLigueHockey->chercherClub("Pingouins"));
 	pLigueHockey->getCoach("Marc-Antoine", "Larouche")->ajouterTitreGagne("Coach le plus apprécié", "8 février 2008", pLigueHockey->chercherClub("Tigres"));

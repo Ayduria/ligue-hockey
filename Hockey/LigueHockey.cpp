@@ -7,8 +7,8 @@ void LigueHockey::ajouterClub(std::string nom, std::string histoire, std::string
 	listeClubs.insert(listeClubs.begin(), club);
 }
 
-void LigueHockey::ajouterCoach(string nom, string prenom, string lieuGraduation) {
-	Coach coach(nom, prenom, lieuGraduation);
+void LigueHockey::ajouterCoach(string prenom, string nom, string lieuGraduation, string villeNaissance, int age) {
+	Coach coach(prenom, nom, lieuGraduation, villeNaissance, age);
 	listeCoach.insert(listeCoach.begin(), coach);
 }
 

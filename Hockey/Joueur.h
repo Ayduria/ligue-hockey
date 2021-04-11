@@ -12,7 +12,6 @@ class Joueur : public Sportif
 private:
 	float taille;
 	float poids;
-	string villeNaissance;
 	vector<Parcours> listeParcours;
 	ContratEngagement* contratActif;
 

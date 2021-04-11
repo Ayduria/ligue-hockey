@@ -31,9 +31,9 @@ void Club::setStade(int capacite, string qualiteTerrain, string nom, string adre
 	this->stade = stade;
 }
 
-void Club::ajouterPersonne(string nom, int age, string role) {
-	Personne personne(nom, age, role);
-	staffTechnique.insert(staffTechnique.begin(), personne);
+void Club::ajouterPersonne(string prenom, string nom, int age, string role) {
+	Staff staff(prenom, nom, age, role);
+	staffTechnique.insert(staffTechnique.begin(), staff);
 }
 
 Joueur* Club::chercherJoueur(string prenom, string nom) {
