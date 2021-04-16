@@ -170,6 +170,7 @@
     <ClCompile Include="Staff.cpp" />
     <ClCompile Include="TitreGagne.cpp" />
     <ClCompile Include="Ecran.cpp" />
+    <ClCompile Include="Écriture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Arbitre.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Staff.h" />
     <ClInclude Include="TitreGagne.h" />
     <ClInclude Include="Ecran.h" />
+    <ClInclude Include="Écriture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

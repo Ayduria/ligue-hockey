@@ -34,6 +34,9 @@ public:
 	Club(string nom, string histoire, string couleur, string date, string ville, string adresse);
 
 	string getNom() { return clubNom; }
+	string getHistoire() { return clubHistoire; }
+	string getCouleur() { return clubCouleur; }
+	string getDate() { return}
 	vector<Joueur*> getEffectif() { return effectif; }
 	Joueur* getJoueur(int i) { return effectif[i]; }
 	vector<Palmares> getPalmares() { return clubPalmares; }

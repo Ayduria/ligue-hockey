@@ -835,7 +835,7 @@ void Ecran::initHardcode() {
 	pLigueHockey->ajouterClub("Tigres", "Histoire du club", "Orange", "1999", "Montréal", "UQAM");
 	pLigueHockey->ajouterClub("Requins", "Histoire du club", "Bleu", "2002", "Laval", "ULAVAL");
 
-		// Palmares clubs
+	// Palmares clubs
 	pLigueHockey->chercherClub("Tigres")->ajouterPalmares("Coupe junior", "2 juin 2002");
 	pLigueHockey->chercherClub("Tigres")->ajouterPalmares("Championnat provincial", "5 septembre 2005");
 	pLigueHockey->chercherClub("Pingouins")->ajouterPalmares("Championnat régional", "1er Mai 2000");
