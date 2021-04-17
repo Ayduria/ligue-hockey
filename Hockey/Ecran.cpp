@@ -27,7 +27,7 @@ void Ecran::Menu() {
 void Ecran::MenuPrincipal() {
 	int choix;
 	Menu();
-	cin >> choix;
+	choix = EntrerInt();
 	cin.ignore();
 	while (choix != 0)
 	{
@@ -77,7 +77,7 @@ void Ecran::MenuPrincipal() {
 			break;
 		}
 		Menu();
-		cin >> choix;
+		choix = EntrerInt();
 		cin.ignore();
 	}
 }
@@ -155,7 +155,7 @@ void Ecran::AjouterJoueurClub() {
 	system("cls");
 	ListeClubs();
 	cout << endl << endl << "Entrez le numéro du club dans lequel vous désirez ajouter des joueurs: ";
-	cin >> choixClub;
+	choixClub = EntrerInt();
 	choixClub--;
 	cin.ignore();
 
@@ -174,7 +174,6 @@ void Ecran::AjouterJoueurClub() {
 
 void Ecran::ListeClubs() {
 	int nbClubs = pLigueHockey->getNbClubs();
-	int choixClub;
 
 	cout << "---------- Liste des clubs ----------" << endl;
 
@@ -196,14 +195,20 @@ void Ecran::AjouterJoueur(string nomClub) {
 	cout << "Nom du joueur: ";
 	getline(cin, nom);
 	cout << "Taille du joueur (float): ";
-	cin >> taille;
+	taille = EntrerFloat();
 	cout << "Poids du joueur (float): ";
-	cin >> poids;
+	poids = EntrerFloat();
 	cin.ignore();
 	cout << "Ville de naissance du joueur: ";
 	getline(cin, ville);
 	cout << endl << "Le joueur est-il autonome (o/n) ? ";
 	cin >> autonome;
+	while (autonome != "n" && autonome != "o")
+	{
+		cout << endl << "Entrée invalide: Veuillez entrer une option valide.";
+		cout << endl << "Le joueur est-il autonome (o/n) ? ";
+		cin >> autonome;
+	}
 
 	if(autonome == "n")
 		pLigueHockey->chercherClub(nomClub)->ajouterJoueur<JoueurNonAutonome>(prenom, nom, taille, poids, ville);
@@ -254,7 +259,7 @@ void Ecran::AjouterStade(string nomClub) {
 	cout << endl << "Nom du stade: ";
 	getline(cin, nom);
 	cout << "Capacité du stade: ";
-	cin >> capacite;
+	capacite = EntrerInt();
 	cin.ignore();
 	cout << "Qualité du terrain (Gazon ou Tartan): ";
 	getline(cin, qualite);
@@ -275,7 +280,7 @@ void Ecran::AjouterStaff(string nomClub) {
 	cout << endl << "Nom de l'employé: ";
 	getline(cin, nom);
 	cout << "Âge de l'employé: ";
-	cin >> age;
+	age = EntrerInt();
 	cin.ignore();
 	cout << "Rôle de l'employé: ";
 	getline(cin, role);
@@ -292,7 +297,7 @@ void Ecran::SupprimerClub() {
 	cout << "==================== Suppression de club ====================" << endl << endl;
 	ListeClubs();
 	cout << endl << endl << "Entrez le numéro du club que vous souhaitez supprimer: ";
-	cin >> choixClub;
+	choixClub = EntrerInt();
 	choixClub--;
 
 	nomClub = pLigueHockey->getClub(choixClub)->getNom();
@@ -314,7 +319,7 @@ void Ecran::AfficherClub() {
 	system("cls");
 	ListeClubs();
 	cout << endl << endl << "Entrez le numéro du club dont vous souhaitez afficher les joueurs: ";
-	cin >> choixClub;
+	choixClub = EntrerInt();
 	choixClub--;
 
 	Club* club = pLigueHockey->getClub(choixClub);
@@ -358,7 +363,7 @@ void Ecran::AjouterEntraineur() {
 	cout << "Ville de naissance: ";
 	getline(cin, villeNaissance);
 	cout << "Âge: ";
-	cin >> age;
+	age = EntrerInt();;
 	cin.ignore();
 
 	pLigueHockey->ajouterCoach(prenom, nom, grade, villeNaissance, age);
@@ -424,11 +429,11 @@ void Ecran::AjouterRencontre() {
 	cout << "==================== Ajout de rencontre au calendrier ====================" << endl;
 
 	cout << endl << "Jour: ";
-	cin >> jour;
+	jour = EntrerInt();
 	cout << "Mois: ";
-	cin >> mois;
+	mois = EntrerInt();
 	cout << "Année: ";
-	cin >> annee;
+	annee = EntrerInt();
 
 	for (int i = 0; i < nbClubs; i++)
 		cout << endl << i + 1 << ") " << pLigueHockey->getClub(i)->getNom();
@@ -436,10 +441,10 @@ void Ecran::AjouterRencontre() {
 	cout << endl << endl;
 
 	cout << "Entrez le numéro du club local: ";
-	cin >> clubLocal;
+	clubLocal = EntrerInt();;
 	clubLocal--;
 	cout << "Entrez le numéro du club invité: ";
-	cin >> clubInvite;
+	clubInvite = EntrerInt();;
 	clubInvite--;
 
 	Date date = pLigueHockey->getCalendrier()->creerDate(jour, mois, annee);
@@ -464,7 +469,7 @@ void Ecran::AfficherCalendrierClub() {
 		cout << endl << i + 1 << ") " << pLigueHockey->getClub(i)->getNom();
 
 	cout << endl << endl << "Entrez le numéro du club pour lequel vous désirez afficher les rencontres: ";
-	cin >> choix;
+	choix = EntrerInt();;
 	choix--;
 
 	club = pLigueHockey->getClub(choix);
@@ -520,7 +525,7 @@ void Ecran::AjouterMatch() {
 	if (cpt > 0) {
 		int choix;
 		cout << endl << "Entrez le numéro de la rencontre pour laquelle vous souhaitez entrer le résultat : ";
-		cin >> choix;
+		choix = EntrerInt();
 		choix--;
 
 		Rencontre* rencontre = pLigueHockey->getCalendrier()->getRencontre(choix);
@@ -571,9 +576,9 @@ Equipe Ecran::CreerEquipe(Club* club, int noRencontre) {
 	string nomCapitaine;
 
 	cout << "Nombre de joueurs pouvant être présents sur le terrain: ";
-	cin >> nbJoueursTerrain;
+	nbJoueursTerrain = EntrerInt();
 	cout << "Nombre de gardiens: ";
-	cin >> nbGardiens;
+	nbGardiens = EntrerInt();
 	cout << "Prénom du capitaine de l'équipe: ";
 	cin >> prenomCapitaine;
 	cout << "Nom du capitaine de l'équipe: ";
@@ -591,11 +596,11 @@ void Ecran::AjouterPeriode(int noRencontre) {
 	int nbButsAdverse;
 
 	cout << "Durée de la période: ";
-	cin >> dureePeriode;
+	dureePeriode = EntrerInt();
 	cout << "Nombre de buts marqués par l'équipe locale: ";
-	cin >> nbButsLocale;
+	nbButsLocale = EntrerInt();
 	cout << "Nombre de buts marqués par l'équipe adverse: ";
-	cin >> nbButsAdverse;
+	nbButsAdverse = EntrerInt();
 
 	pLigueHockey->getCalendrier()->getRencontre(noRencontre)->getMatch()->ajouterPeriode(dureePeriode, nbButsLocale, nbButsAdverse);
 }
@@ -621,7 +626,7 @@ void Ecran::AfficherResultatMatch() {
 
 	if (cpt > 0) {
 		cout << endl << "Entrez le numéro de la rencontre pour laquelle vous souhaitez afficher le résultat : ";
-		cin >> choix;
+		choix = EntrerInt();
 		choix--;
 
 		Rencontre* rencontre = pLigueHockey->getCalendrier()->getRencontre(choix);
@@ -675,7 +680,7 @@ void Ecran::AjouterTransfertJoueur() {
 		cout << endl << i + 1 << ") " << pLigueHockey->getClub(i)->getNom();
 
 	cout << endl << endl << "Entrez le numéro du club du joueur que vous désirez transférer: ";
-	cin >> choixAncienClub;
+	choixAncienClub = EntrerInt();
 	choixAncienClub--;
 
 	Club* ancienClub = pLigueHockey->getClub(choixAncienClub);
@@ -687,7 +692,7 @@ void Ecran::AjouterTransfertJoueur() {
 		cout << endl << i + 1 << ") " << listeJoueurs.at(i)->getPrenom() << " " << listeJoueurs.at(i)->getNom();
 
 	cout << endl << endl << "Entrez le numéro du joueur que vous désirez transférer: ";
-	cin >> choixJoueur;
+	choixJoueur = EntrerInt();
 	choixJoueur--;
 
 	Joueur* joueur = ancienClub->getJoueur(choixJoueur);
@@ -736,7 +741,7 @@ void Ecran::creerContrat(int noJoueur, Joueur* joueur, Club* ancienClub, Date da
 	cout << endl << endl;
 
 	cout << "Entrez le numéro du nouveau club du joueur: ";
-	cin >> choixNouveauClub;
+	choixNouveauClub = EntrerInt();
 	choixNouveauClub--;
 
 	Club* nouveauClub = pLigueHockey->getClub(choixNouveauClub);
@@ -752,7 +757,7 @@ void Ecran::creerContrat(int noJoueur, Joueur* joueur, Club* ancienClub, Date da
 		cin.ignore();
 		getline(cin, raisonsDepart);
 		cout << "Pénalité: ";
-		cin >> penalite;
+		penalite = EntrerInt();
 
 		Rupture* rupture = pLigueHockey->creerRupture(joueur, raisonsDepart, nouveauClub, ancienClub, penalite);
 		ancienClub->ajouterRupture(rupture);
@@ -761,23 +766,23 @@ void Ecran::creerContrat(int noJoueur, Joueur* joueur, Club* ancienClub, Date da
 	cout << endl << "==================== Contrat d'engagement ====================" << endl << endl;
 
 	cout << "Durée du contrat (nombre d'années): ";
-	cin >> dureeContrat;
+	dureeContrat = EntrerInt();
 
 	cout << endl << "------------ Ajout du règlement ------------" << endl << endl;
 	cout << "Seuil en vigueur: ";
-	cin >> seuil;
+	seuil = EntrerFloat();
 	cout << "Description des droits du joueur: ";
 	cin.ignore();
 	getline(cin, descriptionDroits);
 	cout << "Montant du transfert: ";
-	cin >> montantTransfert;
+	montantTransfert = EntrerFloat();
 	cout << "Montant encaissé par son ancien club: ";
-	cin >> montantEncaisseClub;
+	montantEncaisseClub = EntrerFloat();
 
 	cout << endl << "------------ Date du contrat ------------" << endl << endl;
-	cout << "Jour: "; cin >> jour;
-	cout << "Mois: "; cin >> mois;
-	cout << "Jour: "; cin >> annee;
+	cout << "Jour: "; jour = EntrerInt();
+	cout << "Mois: "; mois = EntrerInt();
+	cout << "Jour: "; annee = EntrerInt();
 
 	Date dateContrat = pLigueHockey->getCalendrier()->creerDate(jour, mois, annee);
 	Reglement reglement = pLigueHockey->getContrat()->creerReglement(seuil, descriptionDroits, montantTransfert, montantEncaisseClub);
@@ -801,7 +806,7 @@ void Ecran::AfficherMontantTransferts() {
 		cout << endl << i + 1 << ") " << pLigueHockey->getClub(i)->getNom();
 
 	cout << endl << endl << "Entrez le numéro du club pour lequel vous désirer voir les contrats lui ayant rapporté de l'argent: ";
-	cin >> choixClub;
+	choixClub = EntrerInt();
 	choixClub--;
 
 	Club* club = pLigueHockey->getClub(choixClub);
@@ -816,7 +821,7 @@ void Ecran::AfficherMontantTransferts() {
 
 	if (cpt > 0) {
 		cout << endl << endl << "Entrez le numéro de la date pour laquelle vous souhaitez voir le montant de transfert encaissé par le club: ";
-		cin >> choixDate;
+		choixDate = EntrerInt();
 		choixDate--;
 
 		cout << endl << "Le montant de transfert encaissé par le club à cette date est de " << club->getContrat(choixDate)->getReglement().getMontantAncienClub() << "$." << endl << endl;
@@ -826,6 +831,26 @@ void Ecran::AfficherMontantTransferts() {
 
 	system("pause");
 	system("cls");
+}
+
+float Ecran::EntrerFloat() {
+	float num;
+	while (!(cin >> num)){
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << "Entrée invalide; Veuillez entrer un float: " ;
+	}
+	return num;
+}
+
+int Ecran::EntrerInt() {
+	int num;
+	while (!(cin >> num)) {
+		cin.clear();
+		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		cout << "Entrée invalide; Veuillez entrer un int: ";
+	}
+	return num;
 }
 
 void Ecran::initHardcode() {

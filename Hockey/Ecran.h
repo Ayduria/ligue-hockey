@@ -40,5 +40,8 @@ public:
 	void AjouterPeriode(int noRencontre);
 	void creerContrat(int noJoueur, Joueur* joueur, Club* ancienClub, Date date, bool ruptureContrat);
 
+	float EntrerFloat();
+	int EntrerInt();
+
 	void initHardcode();
 };
