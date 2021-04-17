@@ -70,7 +70,7 @@ void Ecran::MenuPrincipal() {
 			AfficherMontantTransferts();
 			break;
 		case 13:
-			exit(EXIT_SUCCESS);
+			return;
 			break;
 		default:
 			cout << endl << "Choix invalide." << endl;
