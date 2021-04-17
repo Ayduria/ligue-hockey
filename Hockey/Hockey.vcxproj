@@ -148,6 +148,7 @@
     <ClCompile Include="Equipe.cpp" />
     <ClCompile Include="JoueurAutonome.cpp" />
     <ClCompile Include="JoueurNonAutonome.cpp" />
+    <ClCompile Include="Lecture.cpp" />
     <ClCompile Include="LigueHockeyApp.cpp" />
     <ClCompile Include="Joueur.cpp" />
     <ClCompile Include="LigueHockey.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="Joueur.h" />
     <ClInclude Include="JoueurAutonome.h" />
     <ClInclude Include="JoueurNonAutonome.h" />
+    <ClInclude Include="Lecture.h" />
     <ClInclude Include="LigueHockey.h" />
     <ClInclude Include="Match.h" />
     <ClInclude Include="Message.h" />
