@@ -29,3 +29,12 @@ vector<Rencontre> Calendrier::TrouverRencontresClub(Club* club) {
 
 	return listeRencontresClub;
 }
+
+Rencontre Calendrier::getRencontreDate(int jour, int mois, int annee) {
+	for (int i = 0; i < listeRencontres.size(); i++) {
+		if (listeRencontres.at(i).getDate().getJour() == jour && listeRencontres.at(i).getDate().getMois() == mois && listeRencontres.at(i).getDate().getAnnee() == annee)
+		{
+			return listeRencontres.at(i);
+		}
+	}
+}

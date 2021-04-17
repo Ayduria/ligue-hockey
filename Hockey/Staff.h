@@ -11,4 +11,6 @@ class Staff : virtual public Personne
 public:
 	Staff() {}
 	Staff(string prenom, string nom, int age, string role);
+
+	int getAge() { return age; }
 };

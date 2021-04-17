@@ -36,7 +36,9 @@ public:
 	string getNom() { return clubNom; }
 	string getHistoire() { return clubHistoire; }
 	string getCouleur() { return clubCouleur; }
-	string getDate() { return}
+	string getDate() { return dateOrigine; }
+	string getVille() { return ville; }
+	string getAdresse() { return adresse; }
 	vector<Joueur*> getEffectif() { return effectif; }
 	Joueur* getJoueur(int i) { return effectif[i]; }
 	vector<Palmares> getPalmares() { return clubPalmares; }

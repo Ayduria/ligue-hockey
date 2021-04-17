@@ -72,7 +72,7 @@ ContratEngagement* LigueHockey::creerContrat(Joueur* joueur, Club* clubContracta
 	return contrat;
 }
 
-Rupture* LigueHockey::creerRupture(Joueur* joueur, string raisonsDepart, Club* nouveauClub, float penalite) {
-	Rupture* rupture = new Rupture(joueur, raisonsDepart, nouveauClub, penalite);
+Rupture* LigueHockey::creerRupture(Joueur* joueur, string raisonsDepart, Club* nouveauClub, Club* ancienClub, float penalite) {
+	Rupture* rupture = new Rupture(joueur, raisonsDepart, nouveauClub, ancienClub, penalite);
 	return rupture;
 }

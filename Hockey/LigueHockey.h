@@ -38,5 +38,5 @@ public:
 	void retirerClub(int choixClub);
 
 	ContratEngagement* creerContrat(Joueur* joueur, Club* clubContractant, Club* clubLibere, int dureeContrat, Date dateEntree, Reglement reglement, Date dateContrat);
-	Rupture* creerRupture(Joueur* joueur, string raisonsDepart, Club* nouveauClub, float penalite);
+	Rupture* creerRupture(Joueur* joueur, string raisonsDepart, Club* nouveauClub, Club* ancienClub, float penalite);
 };
