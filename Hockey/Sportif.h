@@ -10,4 +10,6 @@ class Sportif : virtual public Personne
 public:
 	Sportif() {}
 	Sportif(string prenom, string nom, string villeNaissance);
+
+	string getVilleNaissance() { return villeNaissance; }
 };

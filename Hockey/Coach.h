@@ -15,6 +15,8 @@ private:
 public:
 	Coach(string prenom, string nom, string lieuGraduation, string villeNaissance, int age);
 
+	string getLieu() { return lieuGraduation; }
+
 	vector<TitreGagne> getTitreGagne() { return titreGagnes; }
 
 	void ajouterTitreGagne(string nom, string date, Club* club);

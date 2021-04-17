@@ -4,6 +4,7 @@ Joueur::Joueur(string prenom, string nom, float taille, float poids, string vill
 	this->taille = taille;
 	this->poids = poids;
 	this->contratActif = nullptr;
+	this->ville = ville;
 }
 
 void Joueur::ajouterParcours(string club, string date) {

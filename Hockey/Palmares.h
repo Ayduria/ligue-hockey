@@ -12,4 +12,7 @@ private:
 public:
 	Palmares() {}
 	Palmares(string titre, string date);
+
+	string getTitre() { return titre; }
+	string getDate() { return date; }
 };

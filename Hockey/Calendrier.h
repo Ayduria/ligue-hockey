@@ -14,6 +14,8 @@ public:
 	int getNbRencontres(void) { return listeRencontres.size(); }
 	Rencontre* getRencontre(int i) { return &listeRencontres[i]; }
 
+	Rencontre getRencontreDate(int jour, int mois, int annee);
+
 	Date creerDate(int jour, int mois, int annee);
 	void AjouterRencontre(Date dateRencontre, Club* clubLocal, Club* clubInvite);
 	vector<Rencontre> TrouverRencontresClub(Club* club);

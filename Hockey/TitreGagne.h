@@ -13,4 +13,7 @@ private:
 
 public:
 	TitreGagne(Palmares palmares, Club* club);
+
+	Palmares getPalmaresTitre() { return palmares; }
+	Club* getClub() { return club; }
 };
