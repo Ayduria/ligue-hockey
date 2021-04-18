@@ -2,14 +2,18 @@
 #include <string>
 using namespace std;
 
+class Negociateur;
+
 class Message
 {
-	string emetteur;
+	Negociateur* emetteur;
 	string sujetMessage;
 	float montantTransfert;
 
 public:
-	string getEmetteur() { return emetteur; }
+	Message(Negociateur* emetteur, string sujetMessage, float montantTransfert);
+
+	Negociateur* getEmetteur() { return emetteur; }
 	string getSujet() { return sujetMessage; }
 	float getMontantTransfert() { return montantTransfert; }
 };

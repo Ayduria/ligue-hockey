@@ -25,7 +25,15 @@ public:
 	vector<Club>* getListeClubs() { return &listeClubs; }
 	vector<Coach>* getListeCoach() { return &listeCoach; }
 	int getNbClubs(void) { return listeClubs.size(); }
-	Club* getClub(int i) { return &listeClubs[i]; }
+	Club* getClub(int i) { 
+		try {
+			listeClubs.at(i);
+			return &listeClubs[i];
+		}
+		catch (const std::exception& e) {
+			return nullptr;
+		}
+	}
 	Calendrier* getCalendrier() { return &calendrierRencontres; }
 	ContratEngagement* getContrat() { return &contrat; }
 

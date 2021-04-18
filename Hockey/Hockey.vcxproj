@@ -177,6 +177,7 @@
     <ClInclude Include="Arbitre.h" />
     <ClInclude Include="Calendrier.h" />
     <ClInclude Include="Club.h" />
+    <ClInclude Include="CMutex.h" />
     <ClInclude Include="Coach.h" />
     <ClInclude Include="ContratEngagement.h" />
     <ClInclude Include="Date.h" />

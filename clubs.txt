@@ -1,18 +1,18 @@
-Pingouins
-Histoire du club
-Blanc
-2000
-Saguenay
-UQAC
-Tigres
-Histoire du club
-Orange
-1999
-Montréal
-UQAM
 Requins
 Histoire du club
 Bleu
 2002
 Laval
 ULAVAL
+Tigres
+Histoire du club
+Orange
+1999
+Montréal
+UQAM
+Pingouins
+Histoire du club
+Blanc
+2000
+Saguenay
+UQAC

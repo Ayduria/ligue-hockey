@@ -11,6 +11,8 @@ class Negociateur
 	queue<Message> fileMessages;
 
 public:
+	Negociateur(float montantDesire, int dureeNegociation, Club* representantClub);
+
 	float getMontantDesire() { return montantDesire; }
 	int getDureeNegociation() { return dureeNegociation; }
 	Club* getRepresentant() { return representantClub; }
