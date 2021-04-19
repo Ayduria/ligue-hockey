@@ -22,10 +22,8 @@ void Negociation::Negocier(Negociateur* negociateur)
 	threadActif++;
 	negoMutex.unlock();
 	while (threadActif != 2) {}
-	//cout << "Thread lancé " << negociateur->getRepresentant()->getNom() << endl;
 	while (!termine) {
 		negoMutex.lock();
-		//cout << "Lock " << negociateur->getRepresentant()->getNom() << endl;
 		chrono::steady_clock::time_point tempsCourant = chrono::steady_clock::now();
 		chrono::milliseconds tempsEcoule = chrono::duration_cast<chrono::milliseconds>(tempsCourant - tempsDebut);
 		termine = termine || tempsEcoule.count() >= dureeNegociation * 1000;
@@ -43,7 +41,6 @@ void Negociation::Negocier(Negociateur* negociateur)
 						rejeterOffre(negociateur->getRepresentant()->getNom(), offreActuelle.getMontantTransfert());
 				}
 			}
-
 			if (!termine) {
 				if (fileMessages.size() > 0)
 					negociateur->calculerMontant(tempsEcoule.count());
@@ -51,7 +48,6 @@ void Negociation::Negocier(Negociateur* negociateur)
 			}
 		}
 		negoMutex.unlock();
-		//cout << "Unlock " << negociateur->getRepresentant()->getNom() << endl;
 		if (!termine)
 			this_thread::sleep_for(chrono::milliseconds(500));
 	}
