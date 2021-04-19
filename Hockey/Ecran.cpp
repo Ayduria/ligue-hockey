@@ -17,7 +17,7 @@ void Ecran::Menu() {
 		cout << "9) Ajouter les résultats d'un match" << endl;
 		cout << "10) Afficher les résultats d'un match" << endl;
 		cout << endl;
-		cout << "11) Ajouter une nouvelle transaction de transfert d'un joueur" << endl;
+		cout << "11) Transférer un joueur" << endl;
 		cout << "12) Afficher les montants de transfert encaissés par un club à une date donnée" << endl;
 		cout << endl << "13) Enregistrer et quitter" << endl;
 		cout << endl;
@@ -735,7 +735,7 @@ void Ecran::AjouterTransfertJoueur() {
 	ContratEngagement* contratActifJoueur = joueur->getContratActif();
 
 	if (contratActifJoueur == nullptr)
-		creerContrat(choixJoueur, joueur, ancienClub, nouveauClub, dateActuelle, rupture);
+		NegoTransfert(nouveauClub, ancienClub, choixJoueur, joueur, dateActuelle, rupture);
 	else {
 		bool contratFini = true;
 		joueurAutonome = joueur->transfert();
@@ -747,14 +747,7 @@ void Ecran::AjouterTransfertJoueur() {
 			contratFini = false;
 
 		if (contratFini) {
-			if (conclusionNego) {
-				cout << endl << "La négociation entre les clubs a réussie. Le transfert peut avoir lieu." << endl;
-				creerContrat(choixJoueur, joueur, ancienClub, nouveauClub, dateActuelle, rupture);
-			}
-			else {
-				cout << endl << "La négociation entre les clubs a échouée. Le transfert n'a pas pu avoir lieu." << endl;
-				system("pause");
-			}	
+			NegoTransfert(nouveauClub, ancienClub, choixJoueur, joueur, dateActuelle, rupture);
 		}
 		else {
 			if (!joueurAutonome) {
@@ -763,15 +756,7 @@ void Ecran::AjouterTransfertJoueur() {
 			}
 			else {
 				rupture = true;
-				conclusionNego = InfosNego(ancienClub, nouveauClub);
-				if (conclusionNego) {
-					cout << endl << "La négociation entre les clubs a réussie. Le transfert peut avoir lieu." << endl;
-					creerContrat(choixJoueur, joueur, ancienClub, nouveauClub, dateActuelle, rupture);
-				}
-				else {
-					cout << endl << "La négociation entre les clubs a échouée. Le transfert n'a pas pu avoir lieu." << endl << endl;
-					system("pause");
-				}
+				NegoTransfert(nouveauClub, ancienClub, choixJoueur, joueur, dateActuelle, rupture);
 			}
 		}
 	}
@@ -779,10 +764,11 @@ void Ecran::AjouterTransfertJoueur() {
 	system("cls");
 }
 
-bool Ecran::InfosNego(Club* clubVendeur, Club* clubAcheteur) {
+void Ecran::NegoTransfert(Club* clubVendeur, Club* clubAcheteur, int noJoueur, Joueur* joueur, Date date, bool rupture) {
 	float montantDesireVendeur, montantDesireAcheteur;
 	float montantMinimal, montantMaximal;
 	float dureeNegociation;
+	bool succes;
 
 	cout << endl << "==================== Négociation ====================" << endl;
 
@@ -804,63 +790,73 @@ bool Ecran::InfosNego(Club* clubVendeur, Club* clubAcheteur) {
 	cout << endl;
 
 	Negociation* negociation = pLigueHockey->creerNegociation(clubAcheteur, clubVendeur, montantDesireVendeur, montantDesireAcheteur, montantMinimal, montantMaximal, dureeNegociation);
-	bool succes = negociation->getSucces();
-	delete negociation;
+	succes = negociation->getSucces();
 
-	return succes;
-}
+	if (succes) {
+		int dureeContrat;
+		int choixNouveauClub;
+		int jour, mois, annee;
+		float montantTransfert, montantEncaisseClub;
+		string descriptionDroits;
 
-void Ecran::creerContrat(int noJoueur, Joueur* joueur, Club* ancienClub, Club* nouveauClub, Date date, bool ruptureContrat) {
-	int dureeContrat;
-	int choixNouveauClub;
-	int jour, mois, annee;
-	float seuil, montantTransfert, montantEncaisseClub;
-	string descriptionDroits;
+		Message dernierMessage = negociation->getFileMessages().back();
+		montantTransfert = dernierMessage.getMontantTransfert();
 
-	ancienClub->retirerJoueur(noJoueur);
-	nouveauClub->ajouterJoueurTransfert(joueur);
+		cout << "La négociation a réussie avec un montant final de " << montantTransfert << "$. Le joueur peut être transféré." << endl << endl;
 
-	if (ruptureContrat) {
-		string raisonsDepart;
-		float penalite;
-		cout << endl << "==================== Rupture de contrat ====================" << endl << endl;
-		cout << "Raisons du départ: ";
+		clubVendeur->retirerJoueur(noJoueur);
+		clubAcheteur->ajouterJoueurTransfert(joueur);
+
+		if (rupture) {
+			string raisonsDepart;
+			float penalite;
+			cout << endl << "==================== Rupture de contrat ====================" << endl << endl;
+			cout << "Raisons du départ: ";
+			cin.ignore();
+			getline(cin, raisonsDepart);
+			cout << "Pénalité: ";
+			penalite = ValiderNombre<int>();
+
+			Rupture* rupture = pLigueHockey->creerRupture(joueur, raisonsDepart, clubAcheteur, clubVendeur, penalite);
+			clubVendeur->ajouterRupture(rupture);
+		}
+
+		cout << endl << "==================== Contrat d'engagement ====================" << endl << endl;
+
+		cout << "Durée du contrat (en années): ";
+		dureeContrat = ValiderNombre<int>();
+
+		cout << endl << "------------ Ajout du règlement ------------" << endl << endl;
+		cout << "Description des droits du joueur: ";
 		cin.ignore();
-		getline(cin, raisonsDepart);
-		cout << "Pénalité: ";
-		penalite = ValiderNombre<int>();
+		getline(cin, descriptionDroits);
+		bool valide = false;
+		do {
+			cout << "Montant encaissé par son ancien club: ";
+			montantEncaisseClub = ValiderNombre<float>();
+			valide = montantEncaisseClub <= montantTransfert;
+			if (!valide)
+				cout << "Le montant encaissé par le club doit être inférieur ou égal au montant du transfert." << endl;
+		} while (!valide);
+		
+		cout << endl << "------------ Date d'entrée en fonction du joueur ------------" << endl << endl;
+		cout << "Jour: "; jour = ValiderNombre<int>();
+		cout << "Mois: "; mois = ValiderNombre<int>();
+		cout << "Jour: "; annee = ValiderNombre<int>();
 
-		Rupture* rupture = pLigueHockey->creerRupture(joueur, raisonsDepart, nouveauClub, ancienClub, penalite);
-		ancienClub->ajouterRupture(rupture);
+		Date dateEntree = pLigueHockey->getCalendrier()->creerDate(jour, mois, annee);
+		Reglement reglement = pLigueHockey->getContrat()->creerReglement(montantMaximal, descriptionDroits, montantTransfert, montantEncaisseClub);
+		ContratEngagement* contrat = pLigueHockey->creerContrat(joueur, clubAcheteur, clubVendeur, dureeContrat, dateEntree, reglement, date);
+
+		joueur->setContratActif(contrat);
+		clubVendeur->ajouterContrat(contrat);
+	}
+	else {
+		cout << "Les clubs ne sont pas arrivés à une entente. Le joueur ne peut pas être transféré." << endl << endl;
+		system("pause");
 	}
 
-	cout << endl << "==================== Contrat d'engagement ====================" << endl << endl;
-
-	cout << "Durée du contrat (nombre d'années): ";
-	dureeContrat = ValiderNombre<int>();
-
-	cout << endl << "------------ Ajout du règlement ------------" << endl << endl;
-	cout << "Seuil en vigueur: ";
-	seuil = ValiderNombre<float>();
-	cout << "Description des droits du joueur: ";
-	cin.ignore();
-	getline(cin, descriptionDroits);
-	cout << "Montant du transfert: ";
-	montantTransfert = ValiderNombre<float>();
-	cout << "Montant encaissé par son ancien club: ";
-	montantEncaisseClub = ValiderNombre<float>();
-
-	cout << endl << "------------ Date du contrat ------------" << endl << endl;
-	cout << "Jour: "; jour = ValiderNombre<int>();
-	cout << "Mois: "; mois = ValiderNombre<int>();
-	cout << "Jour: "; annee = ValiderNombre<int>();
-
-	Date dateContrat = pLigueHockey->getCalendrier()->creerDate(jour, mois, annee);
-	Reglement reglement = pLigueHockey->getContrat()->creerReglement(seuil, descriptionDroits, montantTransfert, montantEncaisseClub);
-	ContratEngagement* contrat = pLigueHockey->creerContrat(joueur, nouveauClub, ancienClub, dureeContrat, date, reglement, dateContrat);
-	
-	joueur->setContratActif(contrat);
-	ancienClub->ajouterContrat(contrat);
+	delete negociation;
 }
 
 void Ecran::AfficherMontantTransferts() {

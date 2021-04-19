@@ -39,8 +39,7 @@ public:
 	void AfficherMontantTransferts();
 	Equipe CreerEquipe(Club* club, int noRencontre);
 	void AjouterPeriode(int noRencontre);
-	bool InfosNego(Club* clubVendeur, Club* clubAcheteur);
-	void creerContrat(int noJoueur, Joueur* joueur, Club* ancienClub, Club* nouveauClub, Date date, bool ruptureContrat);
+	void NegoTransfert(Club* clubVendeur, Club* clubAcheteur, int noJoueur, Joueur* joueur, Date date, bool rupture);
 
 	template<typename T>
 	T ValiderNombre();

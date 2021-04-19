@@ -26,13 +26,6 @@ St-Gelais
 210.000000
 Montréal
 no
-Tigres
-Nicolas
-Laloux
-7.000000
-100.000000
-Saguenay
-yes
 Pingouins
 Jean
 Tremblay
