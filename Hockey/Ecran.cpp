@@ -675,7 +675,7 @@ void Ecran::AfficherResultatMatch() {
 
 void Ecran::AjouterTransfertJoueur() {
 	int nbClubs = pLigueHockey->getNbClubs();
-	int choixAncienClub, choixNouveauClub, choixJoueur;
+	int choixAncienClub, choixJoueur;
 	int jourActuel, moisActuel, anneeActuelle;
 	bool joueurAutonome;
 	bool rupture = false;
@@ -722,20 +722,10 @@ void Ecran::AjouterTransfertJoueur() {
 		joueur = ancienClub->getJoueur(choixJoueur);
 	}
 
-	for (int i = 0; i < nbClubs; i++)
-		cout << endl << i + 1 << ") " << pLigueHockey->getClub(i)->getNom();
-
-	cout << endl << endl;
-
-	cout << "Entrez le numéro du nouveau club du joueur: ";
-	choixNouveauClub = choixClubListe();
-
-	Club* nouveauClub = pLigueHockey->getClub(choixNouveauClub);
-
 	ContratEngagement* contratActifJoueur = joueur->getContratActif();
 
 	if (contratActifJoueur == nullptr)
-		NegoTransfert(nouveauClub, ancienClub, choixJoueur, joueur, dateActuelle, rupture);
+		NegoTransfert(ancienClub, choixJoueur, joueur, dateActuelle, rupture);
 	else {
 		bool contratFini = true;
 		joueurAutonome = joueur->transfert();
@@ -747,7 +737,7 @@ void Ecran::AjouterTransfertJoueur() {
 			contratFini = false;
 
 		if (contratFini) {
-			NegoTransfert(nouveauClub, ancienClub, choixJoueur, joueur, dateActuelle, rupture);
+			NegoTransfert(ancienClub, choixJoueur, joueur, dateActuelle, rupture);
 		}
 		else {
 			if (!joueurAutonome) {
@@ -756,7 +746,7 @@ void Ecran::AjouterTransfertJoueur() {
 			}
 			else {
 				rupture = true;
-				NegoTransfert(nouveauClub, ancienClub, choixJoueur, joueur, dateActuelle, rupture);
+				NegoTransfert(ancienClub, choixJoueur, joueur, dateActuelle, rupture);
 			}
 		}
 	}
@@ -764,20 +754,43 @@ void Ecran::AjouterTransfertJoueur() {
 	system("cls");
 }
 
-void Ecran::NegoTransfert(Club* clubVendeur, Club* clubAcheteur, int noJoueur, Joueur* joueur, Date date, bool rupture) {
+void Ecran::NegoTransfert(Club* clubVendeur, int noJoueur, Joueur* joueur, Date date, bool rupture) {
+	int nbClubs = pLigueHockey->getNbClubs();
+	int choixNouveauClub;
 	float montantDesireVendeur, montantDesireAcheteur;
 	float montantMinimal, montantMaximal;
 	float dureeNegociation;
 	bool succes;
 
+	for (int i = 0; i < nbClubs; i++)
+		cout << endl << i + 1 << ") " << pLigueHockey->getClub(i)->getNom();
+
+	cout << endl << endl;
+
+	bool valide;
+	do {
+		cout << "Entrez le numéro du nouveau club du joueur: ";
+		choixNouveauClub = choixClubListe();
+		Club* nouveauClub = pLigueHockey->getClub(choixNouveauClub);
+		valide = nouveauClub != clubVendeur;
+		if (!valide)
+			cout << "Le joueur ne peut pas être transféré dans son propre club." << endl;
+	} while (!valide);
+
+	Club* clubAcheteur = pLigueHockey->getClub(choixNouveauClub);
+
 	cout << endl << "==================== Négociation ====================" << endl;
 
-	cout << endl << "Montant désiré par le vendeur (" << clubVendeur->getNom() << "): ";
+	cout << endl << "Vendeur: " << clubVendeur->getNom();
+	cout << endl << "Acheteur: " << clubAcheteur->getNom();
+	cout << endl;
+
+	cout << endl << "Montant désiré par le vendeur: ";
 	montantDesireVendeur = ValiderNombre<float>();
 
 	bool valideMin;
 	do {
-		cout << "Montant minimal pour le vendeur (" << clubVendeur->getNom() << "): ";
+		cout << "Montant minimal accepté par le vendeur: ";
 		montantMinimal = ValiderNombre<float>();
 		valideMin = montantMinimal <= montantDesireVendeur;
 		if (!valideMin)
@@ -785,17 +798,23 @@ void Ecran::NegoTransfert(Club* clubVendeur, Club* clubAcheteur, int noJoueur, J
 	} while (!valideMin);
 
 
-	cout << "Montant désiré par l'acheteur (" << clubAcheteur->getNom() << "): ";
+	cout << "Montant désiré par l'acheteur: ";
 	montantDesireAcheteur = ValiderNombre<float>();
 
 	bool valideMax;
 	do {
-		cout << "Montant maximal pour l'acheteur (" << clubAcheteur->getNom() << "): ";
+		cout << "Montant maximal accepté par l'acheteur: ";
 		montantMaximal = ValiderNombre<float>();
 		valideMax = montantMaximal >= montantDesireAcheteur;
 		if (!valideMax)
 			cout << "Le montant maximal de l'acheteur doit être supérieur ou égal à son montant désiré." << endl;
 	} while (!valideMax);
+
+	if (montantMaximal < montantMinimal) {
+		cout << endl <<  "Les montants maximal et minimal ne permettent pas d'arriver à une entente. Le joueur ne peut pas être transféré." << endl << endl;
+		system("pause");
+		return;
+	}
 	
 	cout << "Durée de la négociation (en jours): ";
 	dureeNegociation = ValiderNombre<float>();
@@ -807,7 +826,6 @@ void Ecran::NegoTransfert(Club* clubVendeur, Club* clubAcheteur, int noJoueur, J
 
 	if (succes) {
 		int dureeContrat;
-		int choixNouveauClub;
 		int jour, mois, annee;
 		float montantTransfert, montantEncaisseClub;
 		string descriptionDroits;
@@ -855,7 +873,7 @@ void Ecran::NegoTransfert(Club* clubVendeur, Club* clubAcheteur, int noJoueur, J
 		cout << endl << "------------ Date d'entrée en fonction du joueur ------------" << endl << endl;
 		cout << "Jour: "; jour = ValiderNombre<int>();
 		cout << "Mois: "; mois = ValiderNombre<int>();
-		cout << "Jour: "; annee = ValiderNombre<int>();
+		cout << "Année: "; annee = ValiderNombre<int>();
 
 		Date dateEntree = pLigueHockey->getCalendrier()->creerDate(jour, mois, annee);
 		Reglement reglement = pLigueHockey->getContrat()->creerReglement(montantMaximal, descriptionDroits, montantTransfert, montantEncaisseClub);
@@ -865,7 +883,7 @@ void Ecran::NegoTransfert(Club* clubVendeur, Club* clubAcheteur, int noJoueur, J
 		clubVendeur->ajouterContrat(contrat);
 	}
 	else {
-		cout << "Les clubs ne sont pas arrivés à une entente. Le joueur ne peut pas être transféré." << endl << endl;
+		cout << "Les clubs ne sont pas arrivés à une entente dans le temps alloué. Le joueur ne peut pas être transféré." << endl << endl;
 		system("pause");
 	}
 
