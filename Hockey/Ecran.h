@@ -39,13 +39,21 @@ public:
 	void AfficherMontantTransferts();
 	Equipe CreerEquipe(Club* club, int noRencontre);
 	void AjouterPeriode(int noRencontre);
-	bool Negociation(Club* clubVendeur, Club* clubAcheteur);
+	bool InfosNego(Club* clubVendeur, Club* clubAcheteur);
 	void creerContrat(int noJoueur, Joueur* joueur, Club* ancienClub, Club* nouveauClub, Date date, bool ruptureContrat);
 
 	template<typename T>
 	T ValiderNombre();
 
 	int choixClubListe();
+
+	static void AfficherMessage(Message message) {
+		cout <<
+			"Club de l'émetteur : " << message.getEmetteur() << endl <<
+			"Sujet : " << message.getSujet() << endl <<
+			"Montant : " << message.getMontantTransfert() << "$" << endl <<
+			endl;
+	}
 };
 
 template<typename T>

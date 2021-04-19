@@ -1,7 +1,6 @@
 #include "Negociateur.h"
 
-Negociateur::Negociateur(float montantDesire, int dureeNegociation, Club* representantClub) {
+Negociateur::Negociateur(float montantDesire, Club* representantClub) {
 	this->montantDesire = montantDesire;
-	this->dureeNegociation = dureeNegociation;
 	this->representantClub = representantClub;
 }

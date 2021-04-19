@@ -45,7 +45,7 @@ public:
 			effectif.at(i);
 			return effectif[i];
 		}
-		catch (const std::exception& e) {
+		catch (const exception& e) {
 			return nullptr;
 		}
 	}
@@ -72,7 +72,7 @@ public:
 			listeContrats.at(i);
 			return listeContrats[i];
 		}
-		catch (const std::exception& e) {
+		catch (const exception& e) {
 			return nullptr;
 		}
 	}

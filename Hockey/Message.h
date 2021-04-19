@@ -6,14 +6,14 @@ class Negociateur;
 
 class Message
 {
-	Negociateur* emetteur;
+	string emetteur;
 	string sujetMessage;
 	float montantTransfert;
 
 public:
-	Message(Negociateur* emetteur, string sujetMessage, float montantTransfert);
+	Message(string emetteur, string sujetMessage, float montantTransfert);
 
-	Negociateur* getEmetteur() { return emetteur; }
+	string getEmetteur() { return emetteur; }
 	string getSujet() { return sujetMessage; }
 	float getMontantTransfert() { return montantTransfert; }
 };

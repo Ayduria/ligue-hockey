@@ -747,11 +747,14 @@ void Ecran::AjouterTransfertJoueur() {
 			contratFini = false;
 
 		if (contratFini) {
-			conclusionNego = Negociation(ancienClub, nouveauClub);
-			if (conclusionNego)
+			if (conclusionNego) {
+				cout << endl << "La négociation entre les clubs a réussie. Le transfert peut avoir lieu." << endl;
 				creerContrat(choixJoueur, joueur, ancienClub, nouveauClub, dateActuelle, rupture);
-			else
+			}
+			else {
 				cout << endl << "La négociation entre les clubs a échouée. Le transfert n'a pas pu avoir lieu." << endl;
+				system("pause");
+			}	
 		}
 		else {
 			if (!joueurAutonome) {
@@ -760,12 +763,15 @@ void Ecran::AjouterTransfertJoueur() {
 			}
 			else {
 				rupture = true;
-				conclusionNego = Negociation(ancienClub, nouveauClub);
-				if (conclusionNego)
+				conclusionNego = InfosNego(ancienClub, nouveauClub);
+				if (conclusionNego) {
+					cout << endl << "La négociation entre les clubs a réussie. Le transfert peut avoir lieu." << endl;
 					creerContrat(choixJoueur, joueur, ancienClub, nouveauClub, dateActuelle, rupture);
-				else 
-					cout << endl << "La négociation entre les clubs a échouée. Le transfert n'a pas pu avoir lieu." << endl;
-				
+				}
+				else {
+					cout << endl << "La négociation entre les clubs a échouée. Le transfert n'a pas pu avoir lieu." << endl << endl;
+					system("pause");
+				}
 			}
 		}
 	}
@@ -773,25 +779,35 @@ void Ecran::AjouterTransfertJoueur() {
 	system("cls");
 }
 
-bool Ecran::Negociation(Club* clubVendeur, Club* clubAcheteur) {
+bool Ecran::InfosNego(Club* clubVendeur, Club* clubAcheteur) {
 	float montantDesireVendeur, montantDesireAcheteur;
 	float montantMinimal, montantMaximal;
+	float dureeNegociation;
 
 	cout << endl << "==================== Négociation ====================" << endl;
 
-	cout << endl << "Montant désiré par le vendeur: ";
+	cout << endl << "Montant désiré par le vendeur (" << clubVendeur->getNom() << "): ";
 	montantDesireVendeur = ValiderNombre<float>();
 
-	cout << "Montant minimal pour le vendeur: ";
+	cout << "Montant minimal pour le vendeur (" << clubVendeur->getNom() << "): ";
 	montantMinimal = ValiderNombre<float>();
 
-	cout << "Montant désiré par l'acheteur: ";
+	cout << "Montant désiré par l'acheteur (" << clubAcheteur->getNom() << "): ";
 	montantDesireAcheteur = ValiderNombre<float>();
 
-	cout << "Montant maximal pour l'acheteur: ";
+	cout << "Montant maximal pour l'acheteur (" << clubAcheteur->getNom() << "): ";
 	montantMaximal = ValiderNombre<float>();
 
-	return true;
+	cout << "Durée de la négociation (en jours): ";
+	dureeNegociation = ValiderNombre<float>();
+
+	cout << endl;
+
+	Negociation* negociation = pLigueHockey->creerNegociation(clubAcheteur, clubVendeur, montantDesireVendeur, montantDesireAcheteur, montantMinimal, montantMaximal, dureeNegociation);
+	bool succes = negociation->getSucces();
+	delete negociation;
+
+	return succes;
 }
 
 void Ecran::creerContrat(int noJoueur, Joueur* joueur, Club* ancienClub, Club* nouveauClub, Date date, bool ruptureContrat) {

@@ -17,7 +17,7 @@ public:
 			listeRencontres.at(i);
 			return &listeRencontres[i];
 		}
-		catch (const std::exception& e) {
+		catch (const exception& e) {
 			return nullptr;
 		}
 	}

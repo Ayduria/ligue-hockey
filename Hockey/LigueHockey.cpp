@@ -43,6 +43,17 @@ void LigueHockey::retirerClub(int choixClub) {
 	listeClubs.erase(listeClubs.begin()+choixClub);
 }
 
+Negociation* LigueHockey::creerNegociation(Club* clubAcheteur, Club* clubVendeur, float montantDesireVendeur, float montantDesireAcheteur, float montantMinimal, float montantMaximal, float dureeNegociation)
+{
+	Negociation* negociation = new Negociation(
+		NegoVendeur(montantDesireVendeur, montantMinimal, clubVendeur),
+		NegoAcheteur(montantDesireAcheteur, montantMaximal, clubAcheteur),
+		dureeNegociation,
+		chrono::steady_clock::now()
+		);
+	return negociation;
+}
+
 string LigueHockey::chercherClubTitre() {
 	int posTitre = 0;
 	int plusTitre = 0;
