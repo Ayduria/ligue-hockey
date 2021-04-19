@@ -10,7 +10,6 @@ Lecture lecture(pLigueHockey);
 int main()
 {
     setlocale(LC_CTYPE, "fr-FR");
-    //ecran.initHardcode();
     lecture.lire();
     ecran.MenuPrincipal();
     ecriture.enregistrer();

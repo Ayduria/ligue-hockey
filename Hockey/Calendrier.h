@@ -12,8 +12,15 @@ public:
 	
 	vector<Rencontre>* getListeRencontres() { return &listeRencontres; }
 	int getNbRencontres(void) { return listeRencontres.size(); }
-	Rencontre* getRencontre(int i) { return &listeRencontres[i]; }
-
+	Rencontre* getRencontre(int i) {  
+		try {
+			listeRencontres.at(i);
+			return &listeRencontres[i];
+		}
+		catch (const exception& e) {
+			return nullptr;
+		}
+	}
 	Rencontre* getRencontreDate(int jour, int mois, int annee);
 
 	Date creerDate(int jour, int mois, int annee);

@@ -1,6 +1,7 @@
 #pragma once
 #include "LigueHockey.h"
 #include <locale>
+#include <iostream>
 
 using namespace std;
 
@@ -38,10 +39,30 @@ public:
 	void AfficherMontantTransferts();
 	Equipe CreerEquipe(Club* club, int noRencontre);
 	void AjouterPeriode(int noRencontre);
-	void creerContrat(int noJoueur, Joueur* joueur, Club* ancienClub, Date date, bool ruptureContrat);
+	void NegoTransfert(Club* clubVendeur, Club* clubAcheteur, int noJoueur, Joueur* joueur, Date date, bool rupture);
 
-	float EntrerFloat();
-	int EntrerInt();
+	template<typename T>
+	T ValiderNombre();
 
-	void initHardcode();
+	int choixClubListe();
+
+	static void AfficherMessage(Message message) {
+		cout <<
+			"Club de l'émetteur : " << message.getEmetteur() << endl <<
+			"Sujet : " << message.getSujet() << endl <<
+			"Montant : " << message.getMontantTransfert() << "$" << endl <<
+			endl;
+	}
 };
+
+template<typename T>
+T Ecran::ValiderNombre() {
+	T nombre;
+
+	while (!(cin >> nombre)) {
+		cin.clear();
+		cin.ignore((numeric_limits<streamsize>::max)(), '\n');
+		cout << "Entrée invalide, veuillez entrer un nombre: ";
+	}
+	return nombre;
+}

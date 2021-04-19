@@ -40,7 +40,15 @@ public:
 	string getVille() { return ville; }
 	string getAdresse() { return adresse; }
 	vector<Joueur*> getEffectif() { return effectif; }
-	Joueur* getJoueur(int i) { return effectif[i]; }
+	Joueur* getJoueur(int i) { 
+		try {
+			effectif.at(i);
+			return effectif[i];
+		}
+		catch (const exception& e) {
+			return nullptr;
+		}
+	}
 	vector<Palmares> getPalmares() { return clubPalmares; }
 	vector<Staff>* getStaff() { return &staffTechnique; }
 	vector<ContratEngagement*> getListeContrats() { return listeContrats; }
@@ -59,7 +67,15 @@ public:
 	void ajouterContrat(ContratEngagement* contrat);
 	void ajouterRupture(Rupture* rupture);
 	int getNbContrats() { return listeContrats.size(); }
-	ContratEngagement* getContrat(int i) { return listeContrats[i]; }
+	ContratEngagement* getContrat(int i) { 
+		try {
+			listeContrats.at(i);
+			return listeContrats[i];
+		}
+		catch (const exception& e) {
+			return nullptr;
+		}
+	}
 };
 
 template<typename T>

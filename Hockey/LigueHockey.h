@@ -1,10 +1,10 @@
 #pragma once
-#include "Club.h"
 #include "Coach.h"
 #include "Joueur.h"
 #include "Calendrier.h"
 #include "ContratEngagement.h"
 #include "Rupture.h"
+#include "Negociation.h"
 #include <vector>
 
 using namespace std;
@@ -25,7 +25,15 @@ public:
 	vector<Club>* getListeClubs() { return &listeClubs; }
 	vector<Coach>* getListeCoach() { return &listeCoach; }
 	int getNbClubs(void) { return listeClubs.size(); }
-	Club* getClub(int i) { return &listeClubs[i]; }
+	Club* getClub(int i) { 
+		try {
+			listeClubs.at(i);
+			return &listeClubs[i];
+		}
+		catch (const exception& e) {
+			return nullptr;
+		}
+	}
 	Calendrier* getCalendrier() { return &calendrierRencontres; }
 	ContratEngagement* getContrat() { return &contrat; }
 
@@ -36,6 +44,8 @@ public:
 	string chercherCoachTitre();
 	Club* chercherClub(string nom);
 	void retirerClub(int choixClub);
+
+	Negociation* creerNegociation(Club* clubAcheteur, Club* clubVendeur, float montantDesireVendeur, float montantDesireAcheteur, float montantMinimal, float montantMaximal, float dureeNegociation);
 
 	ContratEngagement* creerContrat(Joueur* joueur, Club* clubContractant, Club* clubLibere, int dureeContrat, Date dateEntree, Reglement reglement, Date dateContrat);
 	Rupture* creerRupture(Joueur* joueur, string raisonsDepart, Club* nouveauClub, Club* ancienClub, float penalite);
