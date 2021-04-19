@@ -775,15 +775,28 @@ void Ecran::NegoTransfert(Club* clubVendeur, Club* clubAcheteur, int noJoueur, J
 	cout << endl << "Montant désiré par le vendeur (" << clubVendeur->getNom() << "): ";
 	montantDesireVendeur = ValiderNombre<float>();
 
-	cout << "Montant minimal pour le vendeur (" << clubVendeur->getNom() << "): ";
-	montantMinimal = ValiderNombre<float>();
+	bool valideMin;
+	do {
+		cout << "Montant minimal pour le vendeur (" << clubVendeur->getNom() << "): ";
+		montantMinimal = ValiderNombre<float>();
+		valideMin = montantMinimal <= montantDesireVendeur;
+		if (!valideMin)
+			cout << "Le montant minimal du vendeur doit être inférieur ou égal à son montant désiré." << endl;
+	} while (!valideMin);
+
 
 	cout << "Montant désiré par l'acheteur (" << clubAcheteur->getNom() << "): ";
 	montantDesireAcheteur = ValiderNombre<float>();
 
-	cout << "Montant maximal pour l'acheteur (" << clubAcheteur->getNom() << "): ";
-	montantMaximal = ValiderNombre<float>();
-
+	bool valideMax;
+	do {
+		cout << "Montant maximal pour l'acheteur (" << clubAcheteur->getNom() << "): ";
+		montantMaximal = ValiderNombre<float>();
+		valideMax = montantMaximal >= montantDesireAcheteur;
+		if (!valideMax)
+			cout << "Le montant maximal de l'acheteur doit être supérieur ou égal à son montant désiré." << endl;
+	} while (!valideMax);
+	
 	cout << "Durée de la négociation (en jours): ";
 	dureeNegociation = ValiderNombre<float>();
 
